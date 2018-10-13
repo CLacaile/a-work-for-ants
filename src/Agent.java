@@ -6,9 +6,9 @@ public class Agent {
 	 * History of the agent thresholds over time
 	 * 
 	 */
-	private List<int> thresholds;
+	private List<Integer> thresholds;
 
-	private List<int> threshold_decrements;
+	private List<Integer> threshold_decrements;
 
 	public void Agent() {
 
@@ -19,7 +19,8 @@ public class Agent {
 	}
 
 	/**
-	 * Implementation of roulette wheel selection algorithm to determine the agent task to perform
+	 * Implementation of roulette wheel selection algorithm to determine the 
+	 * agent task to perform
 	 */
 	private Task roulette_wheel(List<Task> tasks) {
 		return null;
