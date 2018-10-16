@@ -1,3 +1,6 @@
+import Agent;
+import Task;
+
 public abstract class Simulation {
 
 	private int simulation_time;
@@ -10,9 +13,9 @@ public abstract class Simulation {
 
 	private List<Task> tasks;
 
-	public void Simulation() {
+	/*public void Simulation() {
 
-	}
+	}*/
 
 	public void export_CSV() {
 
