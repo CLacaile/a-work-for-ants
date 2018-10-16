@@ -10,7 +10,7 @@ public class Relevance {
 
 	private boolean periodical;
 
-	public void Relevance() {
+	public Relevance() {
 
 	}
 
