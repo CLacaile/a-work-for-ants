@@ -1,10 +1,11 @@
+
 public class Task {
 
 	private int id;
 
 	private Relevance relevance;
 
-	private List<int> agents;
+	private List<Integer> agents;
 
 	public void Task() {
 
