@@ -1,6 +1,6 @@
 public class Relevance {
 
-	private List<int> relevance;
+	private List<Integer> relevance;
 
 	private int min;
 
