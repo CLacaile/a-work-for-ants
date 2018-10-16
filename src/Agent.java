@@ -10,7 +10,7 @@ public class Agent {
 
 	private List<Integer> threshold_decrements;
 
-	public void Agent() {
+	public Agent() {
 
 	}
 
