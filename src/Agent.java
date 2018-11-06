@@ -26,7 +26,7 @@ public class Agent {
 		return thresholds;
 	}
 
-	public int getThresholds(int index) {
+	public int getThreshold(int index) {
 	    return getThresholds().get(index);
     }
 
