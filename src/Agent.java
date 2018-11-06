@@ -12,9 +12,9 @@ public class Agent {
 	// Constructor
 	public Agent(int id, int nbTasks) {
 		this.setId(id);
-		for(int i=0; i<nbTasks; i++) {
-            thresholds.add(seedThresh.nextInt(100));
-        }
+		/*for(int i=0; i<nbTasks; i++) {
+            this.thresholds.add(seedThresh.nextInt(100));
+        }*/
 	}
 
 	// Getters
