@@ -26,6 +26,10 @@ public class Agent {
 		return thresholds;
 	}
 
+	public int getThresholds(int index) {
+	    return getThresholds().get(index);
+    }
+
 	public List<Integer> getThreshold_decrements() {
 		return threshold_decrements;
 	}
