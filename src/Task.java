@@ -4,9 +4,7 @@ public class Task {
 
 	// Attributes
 	private int id;
-
 	private Relevance relevance;
-
 	private List<Integer> agents;
 
 	// Constructor

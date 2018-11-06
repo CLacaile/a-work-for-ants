@@ -4,14 +4,12 @@ public class Agent {
 
 	// Attributes
 	private int id;
-
 	private List<Integer> thresholds;					// History of agents over time
-
 	private List<Integer> threshold_decrements;
 
 	// Constructor
 	public Agent() {
-
+		this.setId(1);
 	}
 
 	// Getters
