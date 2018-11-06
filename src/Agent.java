@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Random;
 
 public class Agent {
 
@@ -6,10 +7,14 @@ public class Agent {
 	private int id;
 	private List<Integer> thresholds;					// History of agents over time
 	private List<Integer> threshold_decrements;
+	private Random seedThresh = new Random();
 
 	// Constructor
-	public Agent() {
-		this.setId(1);
+	public Agent(int id, int nbTasks) {
+		this.setId(id);
+		for(int i=0; i<nbTasks; i++) {
+            thresholds.add(seedThresh.nextInt(100));
+        }
 	}
 
 	// Getters
