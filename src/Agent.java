@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Agent {
 
     // Attributes
 	private int id;
 	private static float proba;
-	private ArrayList<Float> thresholds = new ArrayList<>();            // History of agents over time
+	private ArrayList<Float> thresholds = new ArrayList<>();            // A threshold per task
 	private float thresholdSum=1;
 	private ArrayList<Integer> threshold_decrements = new ArrayList<>();
 
@@ -76,11 +77,19 @@ public class Agent {
 	/**
 	 * Implementation of roulette wheel selection algorithm to determine the
 	 * task to perform by the agent
-	 * @param tasks a list of tasks
+	 * @param tasks the list of tasks to perform
 	 * @return a task to perform
 	 */
-	private Task roulette_wheel(List<Task> tasks) {
-		return null;
+	public Task pickTask(List<Task> tasks) {
+		float t = thresholds.get(0);
+		Random seed = new Random();
+		float a = seed.nextFloat();
+		int i = 0;
+		while (t < a) {
+			i++;
+			t += thresholds.get(i);
+		}
+		return tasks.get(i);
 	}
 
 
