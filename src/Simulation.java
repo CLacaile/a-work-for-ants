@@ -150,7 +150,7 @@ public class Simulation {
 		for(int i=0; i<numberOfIteration; i++){
 			for(int j=0; j<agents.size(); j++){
 				for(int k=0; k<total_agent_number; k++){
-					for(int l=0; i < total_task_number; l++){
+					for(int l=0; l < total_task_number; l++){
 						CSVUtil.writeLine(writer,
 								Arrays.asList(
 										String.valueOf(i+1),
