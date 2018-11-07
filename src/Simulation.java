@@ -9,78 +9,72 @@ import java.util.Random;
 
 public class Simulation {
 
+	// Attributes
 	private int simulation_time;
-
 	private int numberOfIteration;
-
 	private int total_agent_number;
-
 	private int total_task_number;
-
 	private float relevanceSum;
-
 	private ArrayList<Agent> agents = new ArrayList<>();
-
 	private ArrayList<Task> tasks = new ArrayList<>();
 
-	/*public void Simulation() {
-
-	}*/
-
+	// Constructor
 	public Simulation() {
 		relevanceSum=1;
 		numberOfIteration=1;
 	}
 
-
+	// Getters
 	public float getRelevanceSum() {
 		return relevanceSum;
-	}
-
-	public void setRelevanceSum(float relevanceSum) {
-		this.relevanceSum = relevanceSum;
 	}
 
 	public int getSimulation_time() {
 		return simulation_time;
 	}
 
-	public void setSimulation_time(int simulation_time) {
-		this.simulation_time = simulation_time;
-	}
-
 	public int getTotal_agent_number() {
 		return total_agent_number;
-	}
-
-	public void setTotal_agent_number(int total_agent_number) {
-		this.total_agent_number = total_agent_number;
 	}
 
 	public int getTotal_task_number() {
 		return total_task_number;
 	}
 
-	public void setTotal_task_number(int total_task_number) {
-		this.total_task_number = total_task_number;
-	}
-
 	public List<Agent> getAgents() {
 		return agents;
-	}
-
-	public void setAgents(ArrayList<Agent> agents) {
-		this.agents = agents;
 	}
 
 	public List<Task> getTasks() {
 		return tasks;
 	}
 
+	// Setters
+	public void setRelevanceSum(float relevanceSum) {
+		this.relevanceSum = relevanceSum;
+	}
+
+	public void setSimulation_time(int simulation_time) {
+		this.simulation_time = simulation_time;
+	}
+
+	public void setTotal_agent_number(int total_agent_number) {
+		this.total_agent_number = total_agent_number;
+	}
+
+	public void setTotal_task_number(int total_task_number) {
+		this.total_task_number = total_task_number;
+	}
+
+	public void setAgents(ArrayList<Agent> agents) {
+		this.agents = agents;
+	}
+
 	public void setTasks(ArrayList<Task> tasks) {
 		this.tasks = tasks;
 	}
 
+	// Methods
 	public void createTask(int id){
 		Task task = new Task(id, relevanceSum);
 		tasks.add(task);
