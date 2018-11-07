@@ -10,6 +10,7 @@ public class Agent {
 	private ArrayList<Float> thresholds = new ArrayList<>();            // A threshold per task
 	private float thresholdSum=1;
 	private ArrayList<Integer> threshold_decrements = new ArrayList<>();
+	private Task pickedTask;
 
 	// Constructor
 	public Agent(int id, int nbOfTasks) {
@@ -35,6 +36,10 @@ public class Agent {
         return threshold_decrements;
     }
 
+    public Task getPickedTask() {
+        return pickedTask;
+    }
+
     // Setters
     public void setId(int id) {
         this.id = id;
@@ -49,6 +54,11 @@ public class Agent {
     public void setThreshold_decrements(ArrayList<Integer> threshold_decrements) {
         this.threshold_decrements = threshold_decrements;
     }
+
+    public void setPickedTask(Task pickedTask) {
+        this.pickedTask = pickedTask;
+    }
+
 
 	// Methods
 
@@ -89,8 +99,10 @@ public class Agent {
 			i++;
 			t += thresholds.get(i);
 		}
+		this.setPickedTask(tasks.get(i));
 		return tasks.get(i);
 	}
+
 
 
 }
