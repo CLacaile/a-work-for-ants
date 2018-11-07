@@ -50,6 +50,11 @@ public class Agent {
     }
 
 	// Methods
+
+	/**
+	 * This method is used to compute the sum of the thresholds of the agent
+	 * @return a float which is the sum of thresholds
+	 */
 	public float sumThresholds(){
 		float sum=0;
 		for (int i = 0; i < thresholds.size(); i++){
@@ -59,13 +64,20 @@ public class Agent {
 		return sum;
 	}
 
+	/**
+	 * This method is used to perform a given task
+	 * @param task the task to perform
+	 * @return true if the task is performed, false otherwise
+	 */
 	public boolean do_task(Task task) {
 		return false;
 	}
 
 	/**
 	 * Implementation of roulette wheel selection algorithm to determine the
-	 * agent task to perform
+	 * task to perform by the agent
+	 * @param tasks a list of tasks
+	 * @return a task to perform
 	 */
 	private Task roulette_wheel(List<Task> tasks) {
 		return null;
