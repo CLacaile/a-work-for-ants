@@ -97,6 +97,15 @@ public class Simulation {
 	}
 
 	/**
+	 * This method assigns a task to perform to each agent of the simulation. It uses Agent.pickTask() function.
+	 */
+	public void assignTasks(){
+		for(int i=0; i<this.getTotal_agent_number(); i++) {
+			this.getAgents().get(i).pickTask(this.getTasks());
+		}
+	}
+
+	/**
 	 * This method is used to create a new agent
 	 * @param id the id of the agent to create
 	 */
