@@ -3,36 +3,38 @@ import java.util.List;
 
 public class History {
 
-	/**
-	 * A list of agent thresholds throughout time
-	 */
-	private ArrayList<ArrayList<Float>> thresholds = new ArrayList<>();
+	// Attributes
+	private ArrayList<ArrayList<Float>> thresholds = new ArrayList<>(); //A list of agent thresholds throughout time
 
 	private ArrayList<ArrayList<Float>> relevances = new ArrayList<>();
 
+	// Constructor
 	public History(){
 
 	}
 
+	// Getters
 	public ArrayList<ArrayList<Float>> getThresholds() {
 		return thresholds;
-	}
-
-	public void setThresholds(ArrayList<ArrayList<Float>> thresholds) {
-		this.thresholds = thresholds;
 	}
 
 	public ArrayList<ArrayList<Float>> getRelevances() {
 		return relevances;
 	}
 
+	// Setters
+	public void setThresholds(ArrayList<ArrayList<Float>> thresholds) {
+		this.thresholds = thresholds;
+	}
+
 	public void setRelevances(ArrayList<ArrayList<Float>> relevances) {
 		this.relevances = relevances;
 	}
 
-	public void fillThresholds(List<Agent> agentLis){
-		for(int i=0;i < agentLis.size(); i++){
-			thresholds.add(agentLis.get(i).getThresholds());
+	// Methods
+	public void fillThresholds(List<Agent> agentList){
+		for(int i=0;i < agentList.size(); i++){
+			thresholds.add(agentList.get(i).getThresholds());
 		}
 	}
 
