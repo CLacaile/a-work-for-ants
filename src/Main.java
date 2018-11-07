@@ -16,6 +16,7 @@ public class Main {
         //creation of the Agents
         simulation.setTotal_agent_number(nbOfAgents);
         simulation.createNAgents(nbOfAgents);
+        simulation.assignTasks();
 
         //Prints tasks & relevances
         for(int i =0; i<simulation.getTasks().size();i++){
@@ -27,6 +28,7 @@ public class Main {
             for (int j=0; j<simulation.getTasks().size(); j++){
                 System.out.println("Agent id : " + simulation.getAgents().get(i).getId() + " Task " + (j+1) + " threshold at t0 : " + simulation.getAgents().get(i).getThresholds().get(j));
             }
+            System.out.println("Picked task is #"+simulation.getAgents().get(i).getPickedTask().getId());
         }
 
         //create and fill history class
