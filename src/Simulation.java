@@ -75,40 +75,71 @@ public class Simulation {
 	}
 
 	// Methods
+
+	/**
+	 * This method is used to create a new task
+	 * @param id the id of the task
+	 */
 	public void createTask(int id){
 		Task task = new Task(id, relevanceSum);
 		tasks.add(task);
 		relevanceSum-=task.getRelevance().getRelevance().get(0);
 	}
 
+	/**
+	 * This method is used to create a given number of tasks. It uses createTask.
+	 * @param nbOfTasks the number of tasks to create
+	 */
 	public void createNTasks(int nbOfTasks){
 		for(int i = 0; i<nbOfTasks; i++){
 			createTask(i+1);
 		}
 	}
 
+	/**
+	 * This method is used to create a new agent
+	 * @param id the id of the agent to create
+	 */
 	public void createAgent(int id){
 		Agent agent = new Agent(id, tasks.size());
 		agents.add(agent);
 	}
 
+	/**
+	 * This method is used to create a given number of agents
+	 * @param nbOfAgents the number of agents to create
+	 */
 	public void createNAgents(int nbOfAgents){
 		for(int i = 0; i<nbOfAgents; i++){
 			createAgent(i+1);
 		}
 	}
 
+	/**
+	 * This method is used to create a random float number between 0 and 1
+	 * @return a float between 0 and 1
+	 */
 	public static Float randomFloatGenerator() {
 		Random generator = new Random();
-
 		return generator.nextFloat();
 	}
 
+	/**
+	 * This method is used to create a random float number between a min and a max value
+	 * @param min the min value
+	 * @param max the max value
+	 * @return an integer between min and max
+	 */
 	public static int randomIntInRange(int min, int max) {
 		Random generator = new Random();
 		return generator.nextInt((max - min) + 1) + min;
 	}
 
+	/**
+	 * This method is used to export the History values to a .csv file
+	 * @param history
+	 * @throws IOException
+	 */
 	public void exportHistoryToCsv(History history) throws IOException {
 		String csvFile = "history.csv";
 		FileWriter writer = new FileWriter(csvFile);
