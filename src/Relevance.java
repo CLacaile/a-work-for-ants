@@ -1,8 +1,8 @@
-import java.util.List;
+import java.util.ArrayList;
 
 public class Relevance {
 
-	private List<Integer> relevance;
+	private ArrayList<Float> relevance = new ArrayList<>();
 
 	private int min;
 
@@ -12,8 +12,10 @@ public class Relevance {
 
 	private boolean periodical;
 
-	public Relevance() {
-
+	public Relevance(float relevanceSum) {
+		float random = Simulation.randomIntInRange(0, (int) Math.ceil(relevanceSum*100));
+		random /= 100;
+		relevance.add(random);
 	}
 
 	public void init_relevance(int min, int max, int seed, boolean periodical) {
@@ -24,4 +26,43 @@ public class Relevance {
 
 	}
 
+	public ArrayList<Float> getRelevance() {
+		return relevance;
+	}
+
+	public void setRelevance(ArrayList<Float> relevance) {
+		this.relevance = relevance;
+	}
+
+	public int getMin() {
+		return min;
+	}
+
+	public void setMin(int min) {
+		this.min = min;
+	}
+
+	public int getMax() {
+		return max;
+	}
+
+	public void setMax(int max) {
+		this.max = max;
+	}
+
+	public int getSeed() {
+		return seed;
+	}
+
+	public void setSeed(int seed) {
+		this.seed = seed;
+	}
+
+	public boolean isPeriodical() {
+		return periodical;
+	}
+
+	public void setPeriodical(boolean periodical) {
+		this.periodical = periodical;
+	}
 }

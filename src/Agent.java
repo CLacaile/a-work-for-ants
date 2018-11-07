@@ -1,65 +1,74 @@
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Agent {
 
-	// Attributes
 	private int id;
-	private List<Integer> thresholds;					// History of agents over time
-	private List<Integer> threshold_decrements;
-	private Random seedThresh = new Random();
 
-	// Constructor
-	public Agent(int id, int nbTasks) {
-		this.setId(id);
-		/*for(int i=0; i<nbTasks; i++) {
-            this.thresholds.add(seedThresh.nextInt(100));
-        }*/
-	}
+	private static float proba;
 
-	// Getters
-	public int getId() {
-		return id;
-	}
+	/**
+	 * History of the agent thresholds over time
+	 *
+	 */
+	private ArrayList<Float> thresholds = new ArrayList<>();
 
-	public List<Integer> getThresholds() {
-		return thresholds;
-	}
+	private float thresholdSum=1;
 
-	public int getThreshold(int index) {
-	    return getThresholds().get(index);
-    }
+	private ArrayList<Integer> threshold_decrements = new ArrayList<>();
 
-	public List<Integer> getThreshold_decrements() {
-		return threshold_decrements;
-	}
-
-	// Setters
-	public void setId(int id) {
+	public Agent(int id, int nbOfTasks) {
 		this.id = id;
+		for(int i = 0; i < nbOfTasks; i++){
+			float random = Simulation.randomIntInRange(0, (int) Math.ceil(thresholdSum*100));
+			random /= 100;
+			thresholds.add(random);
+			thresholdSum-=random;
+		}
 	}
 
-	public void setThresholds(List<Integer> thresholds) {
-		this.thresholds = thresholds;
+	public float sumThresholds(){
+		float sum=0;
+		for (int i = 0; i < thresholds.size(); i++){
+			sum=+ thresholds.get(i);
+		}
+
+		return sum;
 	}
 
-	public void setThreshold_decrements(List<Integer> threshold_decrements) {
-		this.threshold_decrements = threshold_decrements;
-	}
-
-	// Methods
 	public boolean do_task(Task task) {
 		return false;
 	}
 
 	/**
-	 * Implementation of roulette wheel selection algorithm to determine the 
+	 * Implementation of roulette wheel selection algorithm to determine the
 	 * agent task to perform
 	 */
 	private Task roulette_wheel(List<Task> tasks) {
 		return null;
 	}
 
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 
+	public ArrayList<Float> getThresholds() {
+		return thresholds;
+	}
+
+	public void setThresholds(ArrayList<Float> thresholds) {
+		this.thresholds = thresholds;
+	}
+
+	public List<Integer> getThreshold_decrements() {
+		return threshold_decrements;
+	}
+
+	public void setThreshold_decrements(ArrayList<Integer> threshold_decrements) {
+		this.threshold_decrements = threshold_decrements;
+	}
 }

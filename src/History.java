@@ -1,27 +1,46 @@
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class History {
+public class History {
 
-	// Attributes
-	private List<List<Integer>> thresholds;
+	/**
+	 * A list of agent thresholds throughout time
+	 */
+	private ArrayList<ArrayList<Float>> thresholds = new ArrayList<>();
 
-	private List<Relevance> relevances;
+	private ArrayList<ArrayList<Float>> relevances = new ArrayList<>();
 
-	// Getters
-	public List<List<Integer>> getThresholds() {
+	public History(){
+
+	}
+
+	public ArrayList<ArrayList<Float>> getThresholds() {
 		return thresholds;
 	}
 
-	public List<Relevance> getRelevances() {
-		return relevances;
-	}
-
-	// Setters
-	public void setThresholds(List<List<Integer>> thresholds) {
+	public void setThresholds(ArrayList<ArrayList<Float>> thresholds) {
 		this.thresholds = thresholds;
 	}
 
-	public void setRelevances(List<Relevance> relevances) {
+	public ArrayList<ArrayList<Float>> getRelevances() {
+		return relevances;
+	}
+
+	public void setRelevances(ArrayList<ArrayList<Float>> relevances) {
 		this.relevances = relevances;
+	}
+
+	public void fillThresholds(List<Agent> agentLis){
+		for(int i=0;i < agentLis.size(); i++){
+			thresholds.add(agentLis.get(i).getThresholds());
+		}
+	}
+
+	public void fillRelevance(List<Task> taskList){
+		for(int i=0;i < taskList.size(); i++){
+			relevances.add(taskList.get(i).getRelevance().getRelevance());
+		}
+
+
 	}
 }
