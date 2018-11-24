@@ -10,17 +10,22 @@ public class Agent {
 	private ArrayList<Float> thresholds = new ArrayList<>();            // A threshold per task
 	private float thresholdSum=1;
 	private ArrayList<Integer> threshold_decrements = new ArrayList<>();
-	private Task pickedTask;
+	private Task pickedTask; //to change to nextTask
 
 	// Constructor
 	public Agent(int id, int nbOfTasks) {
 		this.id = id;
-		for(int i = 0; i < nbOfTasks; i++){
-			float random = Simulation.randomIntInRange(0, (int) Math.ceil(thresholdSum*100));
-			random /= 100;
+        float temp_sum = 0;
+        for(int i = 0; i < nbOfTasks; i++){
+			float random = Simulation.randomFloatGenerator();
 			thresholds.add(random);
-			thresholdSum-=random;
+			temp_sum+=random;
 		}
+
+		for(int i = 0; i < nbOfTasks; i++){
+			thresholds.set(i, thresholds.get(i) / temp_sum);
+		}
+
 	}
 
 	// Getters
@@ -69,7 +74,7 @@ public class Agent {
 	public float sumThresholds(){
 		float sum=0;
 		for (int i = 0; i < thresholds.size(); i++){
-			sum=+ thresholds.get(i);
+			sum += thresholds.get(i);
 		}
 
 		return sum;
