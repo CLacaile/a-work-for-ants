@@ -15,17 +15,19 @@ public class Agent {
 	// Constructor
 	public Agent(int id, int nbOfTasks) {
 		this.id = id;
+		// Setting of the thresholds
         float temp_sum = 0;
         for(int i = 0; i < nbOfTasks; i++){
 			float random = Simulation.randomFloatGenerator();
 			thresholds.add(random);
 			temp_sum+=random;
 		}
-
+		// Normalize the thresholds so that the sum is 1
 		for(int i = 0; i < nbOfTasks; i++){
 			thresholds.set(i, thresholds.get(i) / temp_sum);
 		}
-
+		// TODO Setting of the threshold_decrements
+		// From what min value to what max value should we randomize a threshold_decrement ?
 	}
 
 	// Getters
