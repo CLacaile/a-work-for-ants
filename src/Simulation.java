@@ -74,6 +74,14 @@ public class Simulation {
 
 	// Methods
 
+	public void computeRelevanceSum() {
+		Float sum = new Float(0);
+		for (int i=0; i<total_task_number; i++) {
+			sum += tasks.get(i).getTaskRelevanceAtIndex(i);
+		}
+		setRelevanceSum(sum);
+	}
+
 	/**
 	 * This method is used to create a new task
 	 * @param id the id of the task
