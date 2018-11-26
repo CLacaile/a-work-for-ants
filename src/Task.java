@@ -4,13 +4,13 @@ public class Task {
 
 	// Attributes
 	private int id;
-	private Relevance relevances;
+	private Relevance tasksRelevances;
 	private List<Integer> agents;
 
 	// Constructor
 	public Task(int id, int nbOfTasks) {
 		this.id = id;
-		relevances = new Relevance(nbOfTasks);
+		tasksRelevances = new Relevance(nbOfTasks);
 	}
 
 	// Getters
@@ -18,9 +18,13 @@ public class Task {
 		return id;
 	}
 
-	public Relevance getRelevances() {
-		return relevances;
+	public Relevance getTasksRelevances() {
+		return tasksRelevances;
 	}
+
+	/*public Float getTaskRelevanceAtIndex(int index) {
+		return new Float
+	}*/
 
 	public List<Integer> getAgents() {
 		return agents;
@@ -31,8 +35,11 @@ public class Task {
 		this.id = id;
 	}
 
-	public void setRelevances(Relevance relevances) {
-		this.relevances = relevances;
+	public void setTasksRelevances(Relevance tasksRelevances) {
+		this.tasksRelevances = tasksRelevances;
+	}
+
+	public void setRelevanceAtIndex(int index, Float newRelevance) {
 	}
 
 	public void setAgents(List<Integer> agents) {
