@@ -81,7 +81,7 @@ public class Simulation {
 	 * @param id the id of the task
 	 */
 	public void createTask(int id){
-		Task task = new Task(id, relevanceSum);
+		Task task = new Task(id, total_task_number);
 		tasks.add(task);
 		relevanceSum-=task.getRelevance().getRelevance().get(0);
 	}

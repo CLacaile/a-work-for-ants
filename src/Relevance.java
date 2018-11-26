@@ -10,10 +10,18 @@ public class Relevance {
 	private boolean periodical;
 
 	// Constructor
-	public Relevance(float relevanceSum) {
-		float random = Simulation.randomIntInRange(0, (int) Math.ceil(relevanceSum*100));
-		random /= 100;
-		relevance.add(random);
+	public Relevance(int nbOfTasks) {
+		// Setting of the relevances
+		float temp_sum = 0;
+		for(int i = 0; i < nbOfTasks; i++){
+			float random = Simulation.randomFloatGenerator();
+			relevance.add(random);
+			temp_sum+=random;
+		}
+		// Normalize the relevances so that the sum is 1
+		for(int i = 0; i < nbOfTasks; i++){
+			relevance.set(i, relevance.get(i) / temp_sum);
+		}
 	}
 
 	// Getters
