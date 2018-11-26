@@ -8,7 +8,6 @@ import java.util.Random;
 public class Simulation {
 
 	// Attributes
-	protected int simulation_time;
 	protected int numberOfIteration;
 	protected int total_agent_number;
 	protected int total_task_number;
@@ -18,17 +17,16 @@ public class Simulation {
 
 	// Constructor
 	public Simulation() {
-		relevanceSum=1;
-		numberOfIteration=1;
+		computeRelevanceSum();
+		relevanceSum=getRelevanceSum();
 	}
 
 	// Getters
+	public int getNumberOfIteration() {
+		return numberOfIteration;
+	}
 	public float getRelevanceSum() {
 		return relevanceSum;
-	}
-
-	public int getSimulation_time() {
-		return simulation_time;
 	}
 
 	public int getTotal_agent_number() {
@@ -48,12 +46,12 @@ public class Simulation {
 	}
 
 	// Setters
-	public void setRelevanceSum(float relevanceSum) {
-		this.relevanceSum = relevanceSum;
+	public void setNumberOfIteration(int numberOfIteration) {
+		this.numberOfIteration = numberOfIteration;
 	}
 
-	public void setSimulation_time(int simulation_time) {
-		this.simulation_time = simulation_time;
+	public void setRelevanceSum(float relevanceSum) {
+		this.relevanceSum = relevanceSum;
 	}
 
 	public void setTotal_agent_number(int total_agent_number) {

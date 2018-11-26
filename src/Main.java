@@ -5,9 +5,10 @@ public class Main {
     public static void main(String[] args) {
         int nbOfTasks = 10;
         int nbOfAgents = 10;
-
+        int nbOfMaxIterations = 10;
 
         Simulation simulation = new Simulation();
+        simulation.setNumberOfIteration(nbOfMaxIterations);
 
         //creation of the Tasks
         simulation.setTotal_task_number(nbOfTasks);
@@ -17,7 +18,6 @@ public class Main {
         simulation.setTotal_agent_number(nbOfAgents);
         simulation.createNAgents(nbOfAgents);
         simulation.assignTasks();
-
 
         //Prints tasks & relevances
         for(int i =0; i<simulation.getTasks().size();i++){
@@ -35,6 +35,11 @@ public class Main {
             System.out.println("Picked task is #"+simulation.getAgents().get(i).getPickedTask().getId());
             System.out.println("Tresholds sum : " + simulation.getAgents().get(i).sumThresholds());
         }
+
+        // Synchronous simulation
+        Synchronous syncSim = new Synchronous();
+        syncSim.runSimulation();
+
 
         //create and fill history class
         History history = new History();
