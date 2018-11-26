@@ -107,6 +107,25 @@ public class Agent {
 		return false;
 	}
 
+    /**
+     * This method is used to perform the previousTask picked by pickTask. It substracts 0.01 to the task relevance if
+     * the task relevance is not 0
+     * @return true if the task is performed ie. there is no relevance left, false otherwise
+     */
+    public boolean performPickedTask() {
+        int taskIndex = this.pickedTask.getId();
+        Float previousTaskRelevance = this.pickedTask.getTaskRelevanceAtIndex(taskIndex);
+        // Setting new relevance to (previousTaskRelevance - 0.01) if the task has still relevance left
+        if (!previousTaskRelevance.equals(new Float(0))) {
+            this.pickedTask.setRelevanceAtIndex(taskIndex, previousTaskRelevance - new Float(0.01));
+        }
+        // If the task is done
+        else {
+            return true;
+        }
+        return false;
+    }
+
 	/**
 	 * Implementation of roulette wheel selection algorithm to determine the
 	 * task to perform by the agent
