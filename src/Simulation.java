@@ -8,13 +8,13 @@ import java.util.Random;
 public class Simulation {
 
 	// Attributes
-	private int simulation_time;
-	private int numberOfIteration;
-	private int total_agent_number;
-	private int total_task_number;
-	private float relevanceSum;
-	private ArrayList<Agent> agents = new ArrayList<>();
-	private ArrayList<Task> tasks = new ArrayList<>();
+	protected int simulation_time;
+	protected int numberOfIteration;
+	protected int total_agent_number;
+	protected int total_task_number;
+	protected float relevanceSum;
+	protected ArrayList<Agent> agents = new ArrayList<>();
+	protected ArrayList<Task> tasks = new ArrayList<>();
 
 	// Constructor
 	public Simulation() {
