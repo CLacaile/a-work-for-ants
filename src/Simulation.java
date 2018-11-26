@@ -74,6 +74,9 @@ public class Simulation {
 
 	// Methods
 
+	/**
+	 * This method computes the relevance sum and set the value of this.relevanceSum attribute
+	 */
 	public void computeRelevanceSum() {
 		Float sum = new Float(0);
 		for (int i=0; i<total_task_number; i++) {
