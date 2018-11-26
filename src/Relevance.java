@@ -25,7 +25,7 @@ public class Relevance {
 	}
 
 	// Getters
-	public ArrayList<Float> getRelevance() {
+	public ArrayList<Float> getRelevanceArrayList() {
 		return relevance;
 	}
 
@@ -42,7 +42,7 @@ public class Relevance {
 	}
 
 	// Setters
-	public void setRelevance(ArrayList<Float> relevance) {
+	public void setRelevanceArrayList(ArrayList<Float> relevance) {
 		this.relevance = relevance;
 	}
 
