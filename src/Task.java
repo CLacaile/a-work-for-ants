@@ -18,7 +18,7 @@ public class Task {
 		return id;
 	}
 
-	public Relevance getRelevance() {
+	public Relevance getRelevances() {
 		return relevance;
 	}
 
@@ -31,7 +31,7 @@ public class Task {
 		this.id = id;
 	}
 
-	public void setRelevance(Relevance relevance) {
+	public void setRelevances(Relevance relevances) {
 		this.relevance = relevance;
 	}
 
