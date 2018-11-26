@@ -88,11 +88,22 @@ public class Agent {
 	}
 
 	/**
-	 * This method is used to perform a given task
+	 * This method is used to perform a given task. It substracts 0.01 to the task relevance if the task relevance is
+     * not 0
 	 * @param task the task to perform
-	 * @return true if the task is performed, false otherwise
+	 * @return true if the task is performed ie. there is no relevance left, false otherwise
 	 */
-	public boolean do_task(Task task) {
+	public boolean performTask(Task task) {
+	    int taskIndex = task.getId();
+	    Float previousTaskRelevance = task.getTaskRelevanceAtIndex(taskIndex);
+	    // Setting new relevance to (previousTaskRelevance - 0.01) if the task has still relevance left
+        if (!previousTaskRelevance.equals(new Float(0))) {
+            task.setRelevanceAtIndex(taskIndex, previousTaskRelevance - new Float(0.01));
+        }
+        // If the task is done
+        else {
+            return true;
+        }
 		return false;
 	}
 
