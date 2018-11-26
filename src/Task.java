@@ -22,9 +22,9 @@ public class Task {
 		return tasksRelevances;
 	}
 
-	/*public Float getTaskRelevanceAtIndex(int index) {
-		return new Float
-	}*/
+	public Float getTaskRelevanceAtIndex(int index) {
+		return tasksRelevances.getRelevanceArrayList().get(index);
+	}
 
 	public List<Integer> getAgents() {
 		return agents;
@@ -40,6 +40,7 @@ public class Task {
 	}
 
 	public void setRelevanceAtIndex(int index, Float newRelevance) {
+		tasksRelevances.getRelevanceArrayList().set(index, newRelevance);
 	}
 
 	public void setAgents(List<Integer> agents) {
