@@ -24,11 +24,13 @@ public class Main {
             System.out.println("Task id : " + simulation.getTasks().get(i).getId() + " Task Relevance at t0 : " + simulation.getTasks().get(i).getRelevance().getRelevance().get(0));
         }
 
-        //Prints Agents & thresholds per task
+        //Prints Agents & thresholds & threshold_decrements per task
         for(int i = 0; i<simulation.getAgents().size();i++){
 
             for (int j=0; j<simulation.getTasks().size(); j++){
-                System.out.println("Agent id : " + simulation.getAgents().get(i).getId() + " Task " + (j+1) + " threshold at t0 : " + simulation.getAgents().get(i).getThresholds().get(j));
+                System.out.println("Agent id : " + simulation.getAgents().get(i).getId() + " Task " + (j+1) +
+                                    " threshold at t0 : " + simulation.getAgents().get(i).getThresholds().get(j) +
+                                    " threshold_decrement at t0: " + simulation.getAgents().get(i).getThreshold_decrements().get(j));
             }
             System.out.println("Picked task is #"+simulation.getAgents().get(i).getPickedTask().getId());
             System.out.println("Tresholds sum : " + simulation.getAgents().get(i).sumThresholds());
