@@ -7,7 +7,7 @@ public class Main {
         int nbOfAgents = 10;
         int nbOfMaxIterations = 10;
 
-        Simulation simulation = new Simulation();
+        Synchronous simulation = new Synchronous();
         simulation.setNumberOfIteration(nbOfMaxIterations);
 
         //creation of the Tasks
@@ -37,8 +37,7 @@ public class Main {
         }
 
         // Synchronous simulation
-        Synchronous syncSim = new Synchronous();
-        syncSim.runSimulation();
+        simulation.runSimulation();
 
 
         //create and fill history class
