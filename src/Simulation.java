@@ -134,6 +134,15 @@ public class Simulation {
 	}
 
 	/**
+	 * This method is used to create a random float number between min and max
+	 * @return a float between 0 and 1
+	 */
+	public static Float randomFloatInRange(Float min, Float max) {
+		Random generator = new Random();
+		return min + generator.nextFloat() * (max - min);
+	}
+
+	/**
 	 * This method is used to create a random float number between a min and a max value
 	 * @param min the min value
 	 * @param max the max value
