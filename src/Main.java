@@ -21,7 +21,7 @@ public class Main {
 
         //Prints tasks & relevances
         for(int i =0; i<simulation.getTasks().size();i++){
-            System.out.println("Task id : " + simulation.getTasks().get(i).getId() + " Task Relevance at t0 : " + simulation.getTasks().get(i).getRelevance().getRelevance().get(0));
+            System.out.println("Task id : " + simulation.getTasks().get(i).getId() + " Task Relevance at t0 : " + simulation.getTasks().get(i).getTasksRelevances().getRelevanceArrayList().get(0));
         }
 
         //Prints Agents & thresholds & threshold_decrements per task

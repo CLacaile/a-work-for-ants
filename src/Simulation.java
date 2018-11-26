@@ -1,5 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,7 +81,7 @@ public class Simulation {
 	public void createTask(int id){
 		Task task = new Task(id, total_task_number);
 		tasks.add(task);
-		relevanceSum-=task.getRelevance().getRelevance().get(0);
+		relevanceSum-=task.getTasksRelevances().getRelevanceArrayList().get(0);
 	}
 
 	/**

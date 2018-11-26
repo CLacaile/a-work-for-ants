@@ -40,7 +40,7 @@ public class History {
 
 	public void fillRelevance(List<Task> taskList){
 		for(int i=0;i < taskList.size(); i++){
-			relevances.add(taskList.get(i).getRelevance().getRelevance());
+			relevances.add(taskList.get(i).getTasksRelevances().getRelevanceArrayList());
 		}
 
 
