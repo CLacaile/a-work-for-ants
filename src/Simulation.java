@@ -78,7 +78,7 @@ public class Simulation {
 	public void computeRelevanceSum() {
 		Float sum = new Float(0);
 		for (int i=0; i<total_task_number; i++) {
-			sum += tasks.get(i).getTaskRelevanceAtIndex(i);
+			sum += tasks.get(i).getTaskRelevanceAtIndex(-1);
 		}
 		setRelevanceSum(sum);
 	}
@@ -136,7 +136,7 @@ public class Simulation {
 	 * @return a float between 0 and 1
 	 */
 	public static Float randomFloatGenerator() {
-		Random generator = new Random();
+		Random generator = new Random();	// TODO put it as static member and init it in construct
 		return generator.nextFloat();
 	}
 
