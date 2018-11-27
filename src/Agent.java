@@ -26,8 +26,7 @@ public class Agent {
 		for(int i = 0; i < nbOfTasks; i++){
 			thresholds.set(i, thresholds.get(i) / temp_sum);
 		}
-		// TODO Setting of the threshold_decrements
-		// Generate threshold decrements in [0, threshold]
+		// Generate threshold decrements in [0, threshold] // TODO max could be 0.01 for ex
 		for(int i = 0; i < nbOfTasks; i++){
 			Float max = thresholds.get(i);
 			Float random = Simulation.randomFloatInRange(new Float(0), max);
