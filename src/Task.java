@@ -22,7 +22,16 @@ public class Task {
 		return tasksRelevances;
 	}
 
+	/**
+	 * Returns the task relevance at the instant t_index. If index = -1, the functions returns the last relevance
+	 * @param index the instant of the relevance
+	 * @return the relevance float at the instant t_index
+	 */
 	public Float getTaskRelevanceAtIndex(int index) {
+		if (index < 0 ) {
+			int sizeOfRelvevanceArrayList = tasksRelevances.getRelevanceArrayList().size();
+			return tasksRelevances.getRelevanceArrayList().get(sizeOfRelvevanceArrayList-1);
+		}
 		return tasksRelevances.getRelevanceArrayList().get(index);
 	}
 
