@@ -181,10 +181,10 @@ public class Simulation {
 						CSVUtil.writeLine(writer,
 								Arrays.asList(
 										String.valueOf(i+1),
-										String.valueOf(j+1),
 										String.valueOf(k+1),
-										String.valueOf(history.getThresholds().get(j).get(k)),
-										String.valueOf(history.getRelevances().get(i).get(0))),
+										String.valueOf(l+1),
+										String.valueOf(history.getThresholds().get(j).get(l)),
+										String.valueOf(history.getRelevances().get(i).get(l))),
 								',',
 								'"'
 						);
