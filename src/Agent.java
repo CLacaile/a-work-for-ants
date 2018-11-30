@@ -29,7 +29,7 @@ public class Agent {
 		// Generate threshold decrements in [0, threshold] // TODO max could be 0.01 for ex
 		for(int i = 0; i < nbOfTasks; i++){
 			Float max = thresholds.get(i);
-			Float random = Simulation.randomFloatInRange(new Float(0), max);
+			Float random = Simulation.randomFloatInRange(Simulation.randomGenerator, new Float(0), max);
 			threshold_decrements.add(random);
 		}
 	}

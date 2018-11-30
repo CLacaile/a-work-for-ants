@@ -143,11 +143,13 @@ public class Simulation {
 
 	/**
 	 * This method is used to create a random float number between min and max
+	 * @param seed the seed
+	 * @param min the min float
+	 * @param max the max float
 	 * @return a float between 0 and 1
 	 */
-	public static Float randomFloatInRange(Float min, Float max) {
-		Random generator = new Random();
-		return min + generator.nextFloat() * (max - min);
+	public static Float randomFloatInRange(Random seed, Float min, Float max) {
+		return min + seed.nextFloat() * (max - min);
 	}
 
 	/**
@@ -156,9 +158,8 @@ public class Simulation {
 	 * @param max the max value
 	 * @return an integer between min and max
 	 */
-	public static int randomIntInRange(int min, int max) {
-		Random generator = new Random();
-		return generator.nextInt((max - min) + 1) + min;
+	public static int randomIntInRange(Random seed, int min, int max) {
+		return seed.nextInt((max - min) + 1) + min;
 	}
 
 	/**
