@@ -15,6 +15,7 @@ public class Simulation {
 	protected ArrayList<Agent> agents = new ArrayList<>();
 	protected ArrayList<Task> tasks = new ArrayList<>();
 	protected static Random randomGenerator = new Random();
+	protected History history = new History();
 
 	// Constructor
 	public Simulation() {
@@ -45,6 +46,8 @@ public class Simulation {
 	public List<Task> getTasks() {
 		return tasks;
 	}
+
+	public History getHistory() { return history;}
 
 	// Setters
 	public void setNumberOfIteration(int numberOfIteration) {
@@ -164,10 +167,9 @@ public class Simulation {
 
 	/**
 	 * This method is used to export the History values to a .csv file
-	 * @param history
 	 * @throws IOException
 	 */
-	public void exportHistoryToCsv(History history) throws IOException {
+	public void exportHistoryToCsv() throws IOException {
 		String csvFile = "history.csv";
 		FileWriter writer = new FileWriter(csvFile);
 

@@ -41,16 +41,16 @@ public class Main {
 
 
         //create and fill history class
-        History history = new History();
+        /*History history = new History();                // TODO handle history in simulations class at each iteration
         history.fillRelevance(simulation.getTasks());
-        history.fillThresholds(simulation.getAgents());
+        history.fillThresholds(simulation.getAgents());*/
 
 
-        try {
+        /*try {
             simulation.exportHistoryToCsv(history);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
     }
