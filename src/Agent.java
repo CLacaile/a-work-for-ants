@@ -7,14 +7,24 @@ public class Agent {
     // Attributes
 	private int id;
 	private static float proba;
+	private State state;
 	private ArrayList<Float> thresholds = new ArrayList<>();            // A threshold per task
 	private float thresholdSum=1;
 	private ArrayList<Float> threshold_decrements = new ArrayList<>();
 	private Task pickedTask; //to change to nextTask
 
+    public enum State {
+        Init,
+        Idle,   // task has been chosen but not performed yet
+        Working,
+        Sleeping,
+        Dead;
+    }
+
 	// Constructor
 	public Agent(int id, int nbOfTasks) {
 		this.id = id;
+		this.state = State.Init;
 		// Setting of the thresholds
         float temp_sum = 0;
         for(int i = 0; i < nbOfTasks; i++){
@@ -144,6 +154,67 @@ public class Agent {
 		return tasks.get(i);
 	}
 
+    /**
+     * This function determines if the agent should go to the next state or not according to a random value
+     * @return true if it should go to the next state, false otherwise
+     */
+	public boolean nextState(float threshold) {
+	    Random seed = new Random();
+	    float random = seed.nextFloat();
+	    if(threshold >= random)
+	        return true;
+	    else
+	        return false;
+    }
 
-
+    /**
+     * This function implements the life of an agent through states defined by the enum State. An agent state can be:
+     * - init: it just has been created and got not task chosen (see constructor)
+     * - idle: a task has been chosen but not performed yet
+     * - working: it is performing the chosen task
+     * - sleeping: a task has been chosen but is not being performed
+     * - dead: it was either working and sleeping, and is now dead
+     */
+	public void liveLife(ArrayList<Task> tasks) {
+	    switch (this.state) {
+            case Init:
+                System.out.println("Init!");
+                this.pickTask(tasks);
+                this.state = State.Idle;
+                break;
+            case Idle:
+                System.out.println("Idle!");
+                if(this.nextState(new Float(0.5)))
+                    this.state = State.Working;
+                else
+                    this.state = State.Sleeping;
+                break;
+            case Working:
+                //TODO function performTask
+                System.out.println("Working!");
+                // decide what to do next:
+                if(this.nextState(new Float(0.66)) != true )
+                    this.state = State.Working;
+                else if(this.nextState(new Float(0.33)) != true )
+                    this.state = State.Idle;
+                else
+                    this.state = State.Dead;
+                break;
+            case Sleeping:
+                // do nothing
+                System.out.println("Sleeping!");
+                // decide what to do next:
+                if(this.nextState(new Float(0.66)) != true )
+                    this.state = State.Sleeping;
+                else if(this.nextState(new Float(0.33)) != true )
+                    this.state = State.Idle;
+                else
+                    this.state = State.Dead;
+                break;
+            case Dead:
+                // do nothing
+                System.out.println("Dead!");
+                break;
+        }
+    }
 }
