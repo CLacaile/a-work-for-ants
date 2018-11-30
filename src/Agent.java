@@ -18,7 +18,7 @@ public class Agent {
 		// Setting of the thresholds
         float temp_sum = 0;
         for(int i = 0; i < nbOfTasks; i++){
-			float random = Simulation.randomFloatGenerator();
+			float random = Simulation.randomFloatGenerator(Simulation.randomGenerator);
 			thresholds.add(random);
 			temp_sum+=random;
 		}

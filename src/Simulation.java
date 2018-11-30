@@ -14,6 +14,7 @@ public class Simulation {
 	protected float relevanceSum;
 	protected ArrayList<Agent> agents = new ArrayList<>();
 	protected ArrayList<Task> tasks = new ArrayList<>();
+	protected static Random randomGenerator = new Random();
 
 	// Constructor
 	public Simulation() {
@@ -133,11 +134,11 @@ public class Simulation {
 
 	/**
 	 * This method is used to create a random float number between 0 and 1
+	 * @param seed the seed
 	 * @return a float between 0 and 1
 	 */
-	public static Float randomFloatGenerator() {
-		Random generator = new Random();	// TODO put it as static member and init it in construct
-		return generator.nextFloat();
+	public static Float randomFloatGenerator(Random seed) {
+		return seed.nextFloat();
 	}
 
 	/**
