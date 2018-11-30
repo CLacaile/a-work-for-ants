@@ -8,6 +8,8 @@ public class History {
 
 	private ArrayList<ArrayList<Float>> relevances = new ArrayList<>();
 
+	private ArrayList<Float> relevanceSum = new ArrayList<>(); // A list of relevance sum through time
+
 	// Constructor
 	public History(){
 
@@ -15,12 +17,14 @@ public class History {
 
 	// Getters
 	public ArrayList<ArrayList<Float>> getThresholds() {
-		return thresholds;
+		return this.thresholds;
 	}
 
 	public ArrayList<ArrayList<Float>> getRelevances() {
-		return relevances;
+		return this.relevances;
 	}
+
+	public ArrayList<Float> getRelevanceSum() { return this.relevanceSum;}
 
 	// Setters
 	public void setThresholds(ArrayList<ArrayList<Float>> thresholds) {
@@ -30,6 +34,8 @@ public class History {
 	public void setRelevances(ArrayList<ArrayList<Float>> relevances) {
 		this.relevances = relevances;
 	}
+
+	public void setRelevanceSum(ArrayList<Float> relevanceSumList) { this.relevanceSum = relevanceSumList;}
 
 	// Methods
 	public void fillThresholds(List<Agent> agentList){
