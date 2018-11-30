@@ -103,11 +103,11 @@ public class Agent {
 	 * @return true if the task is performed ie. there is no relevance left, false otherwise
 	 */
 	public boolean performTask(Task task) {
-	    int taskIndex = task.getId();
-	    Float previousTaskRelevance = task.getTaskRelevanceAtIndex(taskIndex);
+	    //int taskIndex = task.getId();
+	    Float previousTaskRelevance = task.getTaskRelevanceAtIndex(-1);
 	    // Setting new relevance to (previousTaskRelevance - 0.01) if the task has still relevance left
         if (!previousTaskRelevance.equals(new Float(0))) {
-            task.setRelevanceAtIndex(taskIndex, previousTaskRelevance - new Float(0.01));
+            task.getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevance - new Float(0.01));
         }
         // If the task is done
         else {
@@ -156,6 +156,7 @@ public class Agent {
 
     /**
      * This function determines if the agent should go to the next state or not according to a random value
+     * @param threshold the decision threshold
      * @return true if it should go to the next state, false otherwise
      */
 	public boolean nextState(float threshold) {
@@ -179,23 +180,23 @@ public class Agent {
 	    switch (this.state) {
             case Init:
                 System.out.println("Init!");
-                this.pickTask(tasks);
                 this.state = State.Idle;
                 break;
             case Idle:
-                System.out.println("Idle!");
-                if(this.nextState(new Float(0.5)))
+                this.pickTask(tasks);
+                System.out.println("Idle! Picked task #" + this.getPickedTask().getId());
+                if(this.nextState(new Float(0.7)))
                     this.state = State.Working;
                 else
                     this.state = State.Sleeping;
                 break;
             case Working:
-                //TODO function performTask
-                System.out.println("Working!");
+                this.performTask(this.pickedTask);
+                System.out.println("Working on task #"+this.getPickedTask().getId()+" !");
                 // decide what to do next:
-                if(this.nextState(new Float(0.66)) != true )
+                if(this.nextState(new Float(0.90)) != true )
                     this.state = State.Working;
-                else if(this.nextState(new Float(0.33)) != true )
+                else if(this.nextState(new Float(0.10)) != true )
                     this.state = State.Idle;
                 else
                     this.state = State.Dead;
@@ -204,9 +205,9 @@ public class Agent {
                 // do nothing
                 System.out.println("Sleeping!");
                 // decide what to do next:
-                if(this.nextState(new Float(0.66)) != true )
+                if(this.nextState(new Float(0.90)) != true )
                     this.state = State.Sleeping;
-                else if(this.nextState(new Float(0.33)) != true )
+                else if(this.nextState(new Float(0.10)) != true )
                     this.state = State.Idle;
                 else
                     this.state = State.Dead;
