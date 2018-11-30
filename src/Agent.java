@@ -150,8 +150,8 @@ public class Agent {
 			i++;
 			t += thresholds.get(i);
 		}
-		this.setPickedTask(tasks.get(i));
-		return tasks.get(i);
+		this.pickedTask = tasks.get(i);
+		return this.pickedTask;
 	}
 
     /**
