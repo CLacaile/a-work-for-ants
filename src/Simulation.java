@@ -39,11 +39,11 @@ public class Simulation {
 		return total_task_number;
 	}
 
-	public List<Agent> getAgents() {
+	public ArrayList<Agent> getAgents() {
 		return agents;
 	}
 
-	public List<Task> getTasks() {
+	public ArrayList<Task> getTasks() {
 		return tasks;
 	}
 
