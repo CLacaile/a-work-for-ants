@@ -11,10 +11,10 @@ public class Agent {
 	private ArrayList<Float> thresholds = new ArrayList<>();            // A threshold per task
 	private float thresholdSum=1;
 	private ArrayList<Float> threshold_decrements = new ArrayList<>();
-	private Task pickedTask; //to change to nextTask
+	private Task nextTask; //to change to nextTask
 
     public enum State {
-        Init,
+        Init,   // no task chosen
         Idle,   // task has been chosen but not performed yet
         Working,
         Sleeping,
@@ -42,6 +42,8 @@ public class Agent {
 			Float random = Simulation.randomFloatInRange(Simulation.randomGenerator, new Float(0), max);
 			threshold_decrements.add(random);
 		}
+		// Setting the picked task to an empty one
+        this.nextTask = new Task(-1, nbOfTasks); // is it a good idea ?
 	}
 
 	// Getters
@@ -59,8 +61,8 @@ public class Agent {
         return threshold_decrements;
     }
 
-    public Task getPickedTask() {
-        return pickedTask;
+    public Task getNextTask() {
+        return this.nextTask;
     }
 
     // Setters
@@ -79,7 +81,7 @@ public class Agent {
     }
 
     public void setPickedTask(Task pickedTask) {
-        this.pickedTask = pickedTask;
+        this.nextTask = pickedTask;
     }
 
 
@@ -124,11 +126,11 @@ public class Agent {
      * @return true if the task is performed ie. there is no relevance left, false otherwise
      */
     public boolean performPickedTask() {
-        int taskIndex = this.pickedTask.getId();
-        Float previousTaskRelevance = this.pickedTask.getTaskRelevanceAtIndex(taskIndex);
+        int taskIndex = this.nextTask.getId();
+        Float previousTaskRelevance = this.nextTask.getTaskRelevanceAtIndex(taskIndex);
         // Setting new relevance to (previousTaskRelevance - 0.01) if the task has still relevance left
         if (!previousTaskRelevance.equals(new Float(0))) {
-            this.pickedTask.setRelevanceAtIndex(taskIndex, previousTaskRelevance - new Float(0.01));
+            this.nextTask.setRelevanceAtIndex(taskIndex, previousTaskRelevance - new Float(0.01));
         }
         // If the task is done
         else {
@@ -152,8 +154,8 @@ public class Agent {
 			i++;
 			t += thresholds.get(i);
 		}
-		this.pickedTask = tasks.get(i);
-		return this.pickedTask;
+		this.nextTask = tasks.get(i);
+		return this.nextTask;
 	}
 
     /**
@@ -186,15 +188,15 @@ public class Agent {
                 break;
             case Idle:
                 this.pickTask(tasks);
-                System.out.println("Idle! Picked task #" + this.getPickedTask().getId());
+                System.out.println("Idle! Picked task #" + this.getNextTask().getId());
                 if(this.nextState(new Float(0.7)))
                     this.state = State.Working;
                 else
                     this.state = State.Sleeping;
                 break;
             case Working:
-                this.performTask(this.pickedTask);
-                System.out.println("Working on task #"+this.getPickedTask().getId()+" !");
+                this.performTask(this.nextTask);
+                System.out.println("Working on task #"+this.getNextTask().getId()+" !");
                 // decide what to do next:
                 if(this.nextState(new Float(0.90)) != true )
                     this.state = State.Working;
