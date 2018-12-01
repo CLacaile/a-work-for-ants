@@ -17,7 +17,6 @@ public class Main {
         //creation of the Agents
         simulation.setTotal_agent_number(nbOfAgents);
         simulation.createNAgents(nbOfAgents);
-        simulation.assignTasks();
 
         //Prints tasks & relevances
         for(int i =0; i<simulation.getTasks().size();i++){
@@ -32,7 +31,6 @@ public class Main {
                                     " threshold at t0 : " + simulation.getAgents().get(i).getThresholds().get(j) +
                                     " threshold_decrement at t0: " + simulation.getAgents().get(i).getThreshold_decrements().get(j));
             }
-            System.out.println("Picked task is #"+simulation.getAgents().get(i).getPickedTask().getId());
             System.out.println("Tresholds sum : " + simulation.getAgents().get(i).sumThresholds());
         }
 
