@@ -53,6 +53,8 @@ public class Agent {
         return thresholds;
     }
 
+    public Float getLastThreshold() { return this.thresholds.get(this.thresholds.size()-1); }
+
     public List<Float> getThreshold_decrements() {
         return threshold_decrements;
     }
