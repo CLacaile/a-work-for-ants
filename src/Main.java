@@ -36,21 +36,15 @@ public class Main {
             System.out.println("Tresholds sum : " + simulation.getAgents().get(i).sumThresholds());
         }
 
-        // Synchronous simulation
+        // Synchronous Simulation launch
         simulation.runSimulation();
 
-
-        //create and fill history class
-        /*History history = new History();                // TODO handle history in simulations class at each iteration
-        history.fillRelevance(simulation.getTasks());
-        history.fillThresholds(simulation.getAgents());*/
-
-
-        /*try {
-            simulation.exportHistoryToCsv(history);
+        // Export
+        try {
+            simulation.exportHistoryToCsv();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
 
     }
