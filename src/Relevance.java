@@ -10,17 +10,11 @@ public class Relevance {
 	private boolean periodical;
 
 	// Constructor
-	public Relevance(int nbOfTasks) {
-		// Setting of the relevances
-		float temp_sum = 0;
-		for(int i = 0; i < nbOfTasks; i++){
-			float random = Simulation.randomFloatGenerator(Simulation.randomGenerator);
-			relevance.add(random);
-			temp_sum+=random;
-		}
-		// Normalize the relevances so that the sum is 1
-		for(int i = 0; i < nbOfTasks; i++){
-			relevance.set(i, relevance.get(i) / temp_sum);
+	public Relevance(int nbOfIterations) {
+		// Setting of the relevances (constant value)
+		for(int i = 0; i < nbOfIterations; i++){
+			//float random = Simulation.randomFloatGenerator(Simulation.randomGenerator);
+			relevance.add(new Float(0.5));
 		}
 	}
 
