@@ -20,7 +20,6 @@ public class Simulation {
 	// Constructor
 	public Simulation() {
 		computeRelevanceSum();
-		relevanceSum=getRelevanceSum();
 	}
 
 	// Getters
