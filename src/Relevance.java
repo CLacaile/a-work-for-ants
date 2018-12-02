@@ -12,10 +12,9 @@ public class Relevance {
 	// Constructor
 	public Relevance(int nbOfIterations) {
 		// Setting of the relevances (constant value)
-		for(int i = 0; i < nbOfIterations; i++){
 			//float random = Simulation.randomFloatGenerator(Simulation.randomGenerator);
-			relevance.add(new Float(0.5));
-		}
+			relevance.add(new Float(0));
+
 	}
 
 	// Getters

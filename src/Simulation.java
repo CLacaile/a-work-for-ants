@@ -93,7 +93,6 @@ public class Simulation {
 	public void createTask(int id){
 		Task task = new Task(id, total_task_number);
 		tasks.add(task);
-		relevanceSum-=task.getTasksRelevances().getRelevanceArrayList().get(0);
 	}
 
 	/**
@@ -101,8 +100,18 @@ public class Simulation {
 	 * @param nbOfTasks the number of tasks to create
 	 */
 	public void createNTasks(int nbOfTasks){
+		float temp_sum = 0;
+
 		for(int i = 0; i<nbOfTasks; i++){
 			createTask(i+1);
+			float random = Simulation.randomFloatGenerator(Simulation.randomGenerator);
+			tasks.get(i).getTasksRelevances().getRelevanceArrayList().set(0,random);
+			temp_sum+=random;
+		}
+
+		// Normalize the thresholds so that the sum is 1
+		for(int i = 0; i < nbOfTasks; i++){
+			tasks.get(i).getTasksRelevances().getRelevanceArrayList().set(0, tasks.get(i).getTasksRelevances().getRelevanceArrayList().get(0) / temp_sum);
 		}
 	}
 
@@ -185,7 +194,7 @@ public class Simulation {
 										String.valueOf(k+1),
 										String.valueOf(l+1),
 										String.valueOf(history.getThresholds().get(j).get(l)),
-										String.valueOf(history.getRelevances().get(l).get(i))),
+										String.valueOf(history.getRelevances().get(l))),
 								',',
 								'"'
 						);

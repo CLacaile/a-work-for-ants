@@ -13,9 +13,7 @@ public class Task {
 		// create null task
 		if (this.id == -1) {
 			this.tasksRelevances = new Relevance(nbOfTasks);
-			for (int i = 0; i<nbOfTasks; i++) {
-				this.tasksRelevances.getRelevanceArrayList().set(i, new Float(0));
-			}
+
 		}
 		// create 'classic' task
 		tasksRelevances = new Relevance(nbOfTasks);

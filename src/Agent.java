@@ -25,6 +25,7 @@ public class Agent {
 	public Agent(int id, int nbOfTasks) {
 		this.id = id;
 		this.state = State.Init;
+
 		// Setting of the thresholds
         float temp_sum = 0;
         for(int i = 0; i < nbOfTasks; i++){

@@ -11,6 +11,5 @@ public class Synchronous extends Simulation {
 			this.computeRelevanceSum();
 			System.out.println("Relevance sum: "+this.getRelevanceSum());
 		}
-
 	}
 }
