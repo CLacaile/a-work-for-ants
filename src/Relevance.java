@@ -29,6 +29,14 @@ public class Relevance {
 		return relevance;
 	}
 
+	public float getRelevanceSum() {
+		float sum = new Float(0);
+		for(int i=0; i<this.relevance.size(); i++) {
+			sum+=this.relevance.get(i);
+		}
+		return sum;
+	}
+
 	public int getMin() {
 		return min;
 	}
