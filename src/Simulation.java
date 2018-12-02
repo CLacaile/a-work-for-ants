@@ -96,7 +96,8 @@ public class Simulation {
 	}
 
 	/**
-	 * This method is used to create a given number of tasks. It uses createTask.
+	 * This method is used to create a given number of tasks and normalizes the relevance of each task so the sum is 1.
+	 * It uses createTask().
 	 * @param nbOfTasks the number of tasks to create
 	 */
 	public void createNTasks(int nbOfTasks){
@@ -109,7 +110,7 @@ public class Simulation {
 			temp_sum+=random;
 		}
 
-		// Normalize the thresholds so that the sum is 1
+		// Normalize the relevances so that the sum is 1
 		for(int i = 0; i < nbOfTasks; i++){
 			tasks.get(i).getTasksRelevances().getRelevanceArrayList().set(0, tasks.get(i).getTasksRelevances().getRelevanceArrayList().get(0) / temp_sum);
 		}
