@@ -44,6 +44,10 @@ public class Relevance {
 	}
 
 	// Setters
+	public void addRelevanceAtLastIteration(Float relevance) {
+		this.relevance.add(this.relevance.size(), relevance);
+	}
+
 	public void setRelevanceArrayList(ArrayList<Float> relevance) {
 		this.relevance = relevance;
 	}
