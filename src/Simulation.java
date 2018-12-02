@@ -185,7 +185,7 @@ public class Simulation {
 										String.valueOf(k+1),
 										String.valueOf(l+1),
 										String.valueOf(history.getThresholds().get(j).get(l)),
-										String.valueOf(history.getRelevances().get(i).get(l))),
+										String.valueOf(history.getRelevances().get(l).get(i))),
 								',',
 								'"'
 						);
