@@ -166,7 +166,7 @@ public class Agent {
 	public boolean nextState(float threshold) {
 	    Random seed = new Random();
 	    float random = seed.nextFloat();
-	    if(threshold >= random)
+	    if(random <= threshold)
 	        return true;
 	    else
 	        return false;
@@ -198,9 +198,9 @@ public class Agent {
                 this.performTask(this.nextTask);
                 System.out.println("Working on task #"+this.getNextTask().getId()+" !");
                 // decide what to do next:
-                if(this.nextState(new Float(0.90)) != true )
+                if(this.nextState(new Float(0.90)) == true )
                     this.state = State.Working;
-                else if(this.nextState(new Float(0.10)) != true )
+                else if(this.nextState(new Float(0.10)) == true )
                     this.state = State.Idle;
                 else
                     this.state = State.Dead;
@@ -209,9 +209,9 @@ public class Agent {
                 // do nothing
                 System.out.println("Sleeping!");
                 // decide what to do next:
-                if(this.nextState(new Float(0.90)) != true )
+                if(this.nextState(new Float(0.10)) == true )
                     this.state = State.Sleeping;
-                else if(this.nextState(new Float(0.10)) != true )
+                else if(this.nextState(new Float(0.90)) == true )
                     this.state = State.Idle;
                 else
                     this.state = State.Dead;
