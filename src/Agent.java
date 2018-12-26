@@ -6,12 +6,13 @@ public class Agent {
 
     // Attributes
 	private int id;
-	private static float proba;
+	private ArrayList<Float> proba = new ArrayList<>();
 	private State state;
 	private ArrayList<Float> thresholds = new ArrayList<>();            // A threshold per task
 	private float thresholdSum=1;
 	private ArrayList<Float> threshold_decrements = new ArrayList<>();
 	private Task nextTask; //to change to nextTask
+    private ArrayList<Float> ratio = new ArrayList<>();
 
     public enum State {
         Init,   // no task chosen
@@ -43,6 +44,15 @@ public class Agent {
 			Float random = Simulation.randomFloatInRange(Simulation.randomGenerator, new Float(0), max);
 			threshold_decrements.add(random);
 		}
+
+        for(int i=0; i<nbOfTasks; i++){
+            ratio.add(i, 0f);
+        }
+
+        for(int j=0; j<nbOfTasks;j++){
+            proba.add(j,0f);
+        }
+
 		// Setting the picked task to an empty one
         this.nextTask = new Task(-1, nbOfTasks); // is it a good idea ?
 	}
@@ -107,12 +117,18 @@ public class Agent {
 	 * @param task the task to perform
 	 * @return true if the task is performed ie. there is no relevance left, false otherwise
 	 */
-	public boolean performTask(Task task) {
+	public boolean performTask(Task task, ArrayList<Task> tasks) {
 	    //int taskIndex = task.getId();
 	    Float previousTaskRelevance = task.getTaskRelevanceAtIndex(-1);
 	    // Setting new relevance to (previousTaskRelevance - 0.01) if the task has still relevance left
         if (!previousTaskRelevance.equals(new Float(0))) {
-            task.getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevance - new Float(0.01));
+            float toAdd = (float) (0.05/(tasks.size()-1));
+            for(int i = 0; i<tasks.size();i++){
+                Float previousTaskRelevances = tasks.get(i).getTaskRelevanceAtIndex(-1);
+                tasks.get(i).getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevances+toAdd);
+            }
+
+            task.getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevance - new Float(0.05));
         }
         // If the task is done
         else {
@@ -159,6 +175,40 @@ public class Agent {
 		return this.nextTask;
 	}
 
+	public void computeRatio(List<Task> tasks){
+	    for(int i=0; i<tasks.size(); i++){
+	        ratio.set(i, tasks.get(i).getTasksRelevances().getRelevanceArrayList().get(tasks.get(i).getTasksRelevances().getRelevanceArrayList().size()-1)/this.thresholds.get(i));
+        }
+
+	    for(int j=0; j<ratio.size();j++){
+	        proba.set(j,ratio.get(j)/(1+ratio.get(j)));
+        }
+
+    }
+    /**
+     * Implementation of roulette wheel selection algorithm to determine the
+     * task to perform by the agent
+     * @param tasks the list of tasks to perform
+     * @return a task to perform
+     */
+    public Task newPickTask(List<Task> tasks) {
+        computeRatio(tasks);
+        float min = this.proba.get(0);
+        int index=0;
+
+        for(int i = 0; i < this.proba.size(); i++)
+        {
+            if(min > this.proba.get(i))
+            {
+                min = this.proba.get(i);
+                index=i;
+            }
+        }
+
+        this.nextTask = tasks.get(index);
+        return this.nextTask;
+    }
+
     /**
      * This function determines if the agent should go to the next state or not according to a random value
      * @param threshold the decision threshold
@@ -188,7 +238,7 @@ public class Agent {
                 this.state = State.Idle;
                 break;
             case Idle:
-                this.pickTask(tasks);
+                this.newPickTask(tasks);
                 System.out.println("Idle! Picked task #" + this.getNextTask().getId());
                 if(this.nextState(new Float(0.7)))
                     this.state = State.Working;
@@ -196,7 +246,7 @@ public class Agent {
                     this.state = State.Sleeping;
                 break;
             case Working:
-                this.performTask(this.nextTask);
+                this.performTask(this.nextTask,tasks);
                 System.out.println("Working on task #"+this.getNextTask().getId()+" !");
                 // decide what to do next:
                 if(this.nextState(new Float(0.90)) == true )
