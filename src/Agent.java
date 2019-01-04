@@ -13,6 +13,9 @@ public class Agent {
 	private ArrayList<Float> threshold_decrements = new ArrayList<>();
 	private Task nextTask; //to change to nextTask
     private ArrayList<Float> ratio = new ArrayList<>();
+    private ArrayList <Task> eligibleTasks = new ArrayList<>();
+    private ArrayList<Float> eligibleThresholds = new ArrayList<>();
+
 
     public enum State {
         Init,   // no task chosen
@@ -163,17 +166,19 @@ public class Agent {
 	 * @return a task to perform
 	 */
 	public Task pickTask(List<Task> tasks) {
-		float t = thresholds.get(0);
+		float t = eligibleThresholds.get(0);
 		Random seed = new Random();
 		float a = seed.nextFloat();
 		int i = 0;
 		while (t < a) {
 			i++;
-			t += thresholds.get(i);
+			t += eligibleThresholds.get(i);
 		}
-		this.nextTask = tasks.get(i);
+		this.nextTask = eligibleTasks.get(i);
 		return this.nextTask;
 	}
+
+
 
 	public void computeRatio(List<Task> tasks){
 	    for(int i=0; i<tasks.size(); i++){
@@ -181,7 +186,7 @@ public class Agent {
         }
 
 	    for(int j=0; j<ratio.size();j++){
-	        proba.set(j,ratio.get(j)/(1+ratio.get(j)));
+	        proba.set(j,(ratio.get(j)*ratio.get(j))/(1+(ratio.get(j)*ratio.get(j))));
         }
 
     }
@@ -193,19 +198,17 @@ public class Agent {
      */
     public Task newPickTask(List<Task> tasks) {
         computeRatio(tasks);
-        float min = this.proba.get(0);
-        int index=0;
 
-        for(int i = 0; i < this.proba.size(); i++)
+        for(int i = 0; i < this.ratio.size(); i++)
         {
-            if(min > this.proba.get(i))
+            if(this.ratio.get(i) > 1)
             {
-                min = this.proba.get(i);
-                index=i;
+                eligibleTasks.add(tasks.get(i));
+                eligibleThresholds.add(thresholds.get(i));
             }
         }
 
-        this.nextTask = tasks.get(index);
+        this.nextTask = pickTask(eligibleTasks);
         return this.nextTask;
     }
 
