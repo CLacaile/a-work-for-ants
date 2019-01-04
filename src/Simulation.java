@@ -93,7 +93,7 @@ public class Simulation {
 	 * @param id the id of the task
 	 */
 	public void createTask(int id){
-		Task task = new Task(id, total_task_number);
+		Task task = new Task(id, numberOfIteration);
 		tasks.add(task);
 	}
 

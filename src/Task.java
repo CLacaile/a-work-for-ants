@@ -8,9 +8,9 @@ public class Task {
 	private List<Integer> agents;
 
 	// Constructor
-	public Task(int id, int nbOfTasks) {
+	public Task(int id, int nbOfIterations) {
 		this.id = id;
-		tasksRelevances = new Relevance(nbOfTasks);
+		tasksRelevances = new Relevance(nbOfIterations);
 	}
 
 	// Getters
