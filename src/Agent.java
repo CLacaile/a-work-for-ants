@@ -160,7 +160,7 @@ public class Agent {
     }
 
 	/**
-	 * Implementation of roulette wheel selection algorithm to determine the
+	 * Implementation of roulette wheel selection algorithm on a list of tasks to determine the
 	 * task to perform by the agent
 	 * @param tasks the list of tasks to perform
 	 * @return a task to perform
@@ -178,27 +178,41 @@ public class Agent {
 		return this.nextTask;
 	}
 
+    /**
+     * Implementation of roulette wheel selection algorithm on a list of doable tasks. It determines the task to perform
+     * by the agent. The list eligibleTasks must be computed using computeEligibleTasks() before !
+     * @return the next task
+     */
+    public Task pickEligibleTask() {
+        float t = eligibleTasks.get(0).getTaskRelevanceAtIndex(-1);
+        Random seed = new Random();
+        float a = seed.nextFloat();
+        int i = 0;
+        while (t < a) {
+            i++;
+            t += eligibleTasks.get(i).getTaskRelevanceAtIndex(-1);
+        }
+        this.nextTask = this.eligibleTasks.get(i);
+        return this.eligibleTasks.get(i);
+    }
 
-
+    /**
+     * Compute the ratios relevance/threshold of the agent
+     * @param tasks the tasks of the simulation
+     */
 	public void computeRatio(List<Task> tasks){
 	    for(int i=0; i<tasks.size(); i++){
 	        ratio.set(i, tasks.get(i).getTasksRelevances().getRelevanceArrayList().get(tasks.get(i).getTasksRelevances().getRelevanceArrayList().size()-1)/this.thresholds.get(i));
         }
-
-	    for(int j=0; j<ratio.size();j++){
-	        proba.set(j,(ratio.get(j)*ratio.get(j))/(1+(ratio.get(j)*ratio.get(j))));
-        }
-
     }
+
     /**
-     * Implementation of roulette wheel selection algorithm to determine the
-     * task to perform by the agent
-     * @param tasks the list of tasks to perform
+     * Compute a list of doable tasks for the agent. A task is doable when the ratio is > 1
+     * @param tasks the list of tasks to perform. Uses computeRatio fonction.
      * @return a task to perform
      */
-    public Task newPickTask(List<Task> tasks) {
+    public void computeEligibleTasks(List<Task> tasks) {
         computeRatio(tasks);
-
         for(int i = 0; i < this.ratio.size(); i++)
         {
             if(this.ratio.get(i) > 1)
@@ -207,9 +221,6 @@ public class Agent {
                 eligibleThresholds.add(thresholds.get(i));
             }
         }
-
-        this.nextTask = pickTask(eligibleTasks);
-        return this.nextTask;
     }
 
     /**
@@ -241,7 +252,8 @@ public class Agent {
                 this.state = State.Idle;
                 break;
             case Idle:
-                this.newPickTask(tasks);
+                this.computeEligibleTasks(tasks);
+                this.pickEligibleTask();
                 System.out.println("Idle! Picked task #" + this.getNextTask().getId());
                 if(this.nextState(new Float(0.7)))
                     this.state = State.Working;
