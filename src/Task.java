@@ -3,19 +3,13 @@ import java.util.List;
 public class Task {
 
 	// Attributes
-	private int id;
+	private int id; // if id = 0, it is the null task (sleeping)
 	private Relevance tasksRelevances;
 	private List<Integer> agents;
 
 	// Constructor
 	public Task(int id, int nbOfTasks) {
 		this.id = id;
-		// create null task
-		if (this.id == -1) {
-			this.tasksRelevances = new Relevance(nbOfTasks);
-
-		}
-		// create 'classic' task
 		tasksRelevances = new Relevance(nbOfTasks);
 	}
 

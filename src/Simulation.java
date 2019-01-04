@@ -26,7 +26,9 @@ public class Simulation {
 	public int getNumberOfIteration() {
 		return numberOfIteration;
 	}
+
 	public float getRelevanceSum() {
+		computeRelevanceSum();
 		return relevanceSum;
 	}
 
@@ -103,8 +105,9 @@ public class Simulation {
 	public void createNTasks(int nbOfTasks){
 		float temp_sum = 0;
 
+		// create "normal tasks"
 		for(int i = 0; i<nbOfTasks; i++){
-			createTask(i+1);
+			createTask(i);
 			float random = Simulation.randomFloatGenerator(Simulation.randomGenerator);
 			tasks.get(i).getTasksRelevances().getRelevanceArrayList().set(0,random);
 			temp_sum+=random;
