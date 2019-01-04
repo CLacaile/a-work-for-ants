@@ -21,7 +21,6 @@ public class Agent {
         Init,   // no task chosen
         Idle,   // task has been chosen but not performed yet
         Working,
-        Sleeping,
         Dead;
     }
 
@@ -273,29 +272,18 @@ public class Agent {
                 this.computeEligibleTasks(tasks);
                 this.pickEligibleTask();
                 System.out.println("Idle! Picked task #" + this.getNextTask().getId());
-                if(this.nextState(new Float(0.7)))
+                if(this.nextState(new Float(0.5)))
                     this.state = State.Working;
                 else
-                    this.state = State.Sleeping;
+                    this.state = State.Idle;
                 break;
             case Working:
                 this.performTask(this.nextTask,tasks);
                 System.out.println("Working on task #"+this.getNextTask().getId()+" !");
                 // decide what to do next:
-                if(this.nextState(new Float(0.90)) == true )
+                if(this.nextState(new Float(0.33)) == true )
                     this.state = State.Working;
-                else if(this.nextState(new Float(0.10)) == true )
-                    this.state = State.Idle;
-                else
-                    this.state = State.Dead;
-                break;
-            case Sleeping:
-                // do nothing
-                System.out.println("Sleeping!");
-                // decide what to do next:
-                if(this.nextState(new Float(0.10)) == true )
-                    this.state = State.Sleeping;
-                else if(this.nextState(new Float(0.90)) == true )
+                else if(this.nextState(new Float(0.33)) == true )
                     this.state = State.Idle;
                 else
                     this.state = State.Dead;
