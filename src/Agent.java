@@ -189,8 +189,8 @@ public class Agent {
         Random seed = new Random();
         float a = seed.nextFloat();
         int i = 0;
-        // if the eligible task 0 is already less than the random value a
-        if(t < a) {
+        // if the eligible task 0 is already over the random value a
+        if(t > a) {
             this.nextTask = this.eligibleTasks.get(0);
             return this.eligibleTasks.get(0);
         }
@@ -199,7 +199,8 @@ public class Agent {
             i++;
             // if t will never be over a
             if(i == eligibleTasks.size()) {
-                break;
+                this.nextTask = this.eligibleTasks.get(i-1);
+                return this.eligibleTasks.get(i-1);
             }
             // continue
             t += eligibleTasks.get(i).getTaskRelevanceAtIndex(-1);
