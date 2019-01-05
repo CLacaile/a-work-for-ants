@@ -63,6 +63,10 @@ public class Task {
 	public void task_done() {
 
 	}
+
+	public void updateRelevance() {
+
+	}
 }
 
 

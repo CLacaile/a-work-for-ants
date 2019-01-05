@@ -20,7 +20,11 @@ public class Main {
 
         //Prints tasks & relevances
         for(Task t : simulation.getTasks()) {
-            System.out.println("Task id : " + t.getId() + " Task Relevance at t0 : " + t.getTasksRelevances().getRelevanceArrayList().get(0));
+            System.out.println("---------- Task "+t.getId()+" ----------");
+            for(int i= 0; i<nbOfMaxIterations; i++) {
+                System.out.println("R at t"+i+" : " + t.getTasksRelevances().getRelevanceArrayList().get(i));
+            }
+
         }
         System.out.println("Relevance sum : " + simulation.getRelevanceSum());
 
