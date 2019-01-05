@@ -5,7 +5,6 @@ public class Task {
 	// Attributes
 	private int id; // if id = 0, it is the null task (sleeping)
 	private Relevance tasksRelevances;
-	private List<Integer> agents;
 
 	// Constructor
 	public Task(int id, int nbOfIterations) {
@@ -35,10 +34,6 @@ public class Task {
 		return tasksRelevances.getRelevanceArrayList().get(index);
 	}
 
-	public List<Integer> getAgents() {
-		return agents;
-	}
-
 	// Setters
 	public void setId(int id) {
 		this.id = id;
@@ -50,10 +45,6 @@ public class Task {
 
 	public void setRelevanceAtIndex(int index, Float newRelevance) {
 		tasksRelevances.getRelevanceArrayList().set(index, newRelevance);
-	}
-
-	public void setAgents(List<Integer> agents) {
-		this.agents = agents;
 	}
 
 	// Methods
