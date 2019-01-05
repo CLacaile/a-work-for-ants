@@ -213,4 +213,34 @@ public class Simulation {
 		writer.flush();
 		writer.close();
 	}
+
+
+	/**
+	 * This method is used to export the History values to a .csv file
+	 * @throws IOException
+	 */
+	public void exportRelevanceToCsv() throws IOException {
+		String csvFile = "relevance.csv";
+		FileWriter writer = new FileWriter(csvFile);
+
+		CSVUtil.writeLine(writer, Arrays.asList("sep=,"));
+		CSVUtil.writeLine(writer, Arrays.asList("Iteration", "Task ID", "Task Relevance"), ',', '"');
+
+		for(int i=0; i<numberOfIteration; i++){
+					for(int l=0; l < total_task_number; l++){
+						CSVUtil.writeLine(writer,
+								Arrays.asList(
+										String.valueOf(i+1),
+										String.valueOf(l+1),
+										String.valueOf(history.getRelevances().get(l).get(i))),
+								',',
+								'"'
+						);
+					}
+			}
+		//jacques
+		writer.flush();
+		writer.close();
+	}
+
 }
