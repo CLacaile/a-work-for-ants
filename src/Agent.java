@@ -149,13 +149,13 @@ public class Agent {
 	    //int taskIndex = task.getId();
 	    Float previousTaskRelevance = task.getTaskRelevanceAtIndex(-1);
 	    // Check if the task still has relevance left
-        if (/*!previousTaskRelevance.equals(new Float(0))*/true) {
+        if (!previousTaskRelevance.equals(new Float(0))) {
             // Update the other tasks
-            /*float toAdd = (float) (0.05/(tasks.size()-1));
+            float toAdd = (float) (0.05/(tasks.size()-1));
             for(int i = 0; i<tasks.size();i++){
                 Float previousTaskRelevances = tasks.get(i).getTaskRelevanceAtIndex(-1);
                 tasks.get(i).getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevances+toAdd);
-            }*/
+            }
             // Update the task
             task.getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevance - new Float(0.05));
         }
