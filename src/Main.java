@@ -4,9 +4,9 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        int nbOfTasks = 10;
-        int nbOfAgents = 10;
-        int nbOfMaxIterations = 10;
+        int nbOfTasks = 25;
+        int nbOfAgents = 5;
+        int nbOfMaxIterations = 20;
 
         Random seed = new Random(1);
         Synchronous simulation = new Synchronous(seed);
@@ -33,7 +33,7 @@ public class Main {
         // Synchronous Simulation launch
         simulation.runSimulation();
 
-
+        System.out.println("debug");
         //Prints tasks & relevances
         for(Task t : simulation.getTasks()) {
             System.out.println("---------- Task "+t.getId()+" ----------");
