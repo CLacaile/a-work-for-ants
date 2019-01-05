@@ -14,12 +14,15 @@ public class Simulation {
 	protected float relevanceSum;
 	protected ArrayList<Agent> agents = new ArrayList<>();
 	protected ArrayList<Task> tasks = new ArrayList<>();
-	protected static Random randomGenerator = new Random();
+	protected static Random seed;
 	protected History history = new History();
 
 	// Constructor
-	public Simulation() {
+	//public Simulation() {}
+
+	public Simulation(Random seed) {
 		computeRelevanceSum();
+		this.seed = seed;
 	}
 
 	// Getters
@@ -49,6 +52,8 @@ public class Simulation {
 	}
 
 	public History getHistory() { return history;}
+
+	public Random getSeed() { return seed;}
 
 	// Setters
 	public void setNumberOfIteration(int numberOfIteration) {
@@ -108,7 +113,7 @@ public class Simulation {
 		// create "normal tasks"
 		for(int i = 0; i<nbOfTasks; i++){
 			createTask(i);
-			float random = Simulation.randomFloatGenerator(Simulation.randomGenerator);
+			float random = randomFloatGenerator(this.seed);
 			tasks.get(i).getTasksRelevances().getRelevanceArrayList().set(0,random);
 			temp_sum+=random;
 		}

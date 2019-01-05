@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Random;
 
 public class Main {
 
@@ -7,7 +8,8 @@ public class Main {
         int nbOfAgents = 10;
         int nbOfMaxIterations = 10;
 
-        Synchronous simulation = new Synchronous();
+        Random seed = new Random(1);
+        Synchronous simulation = new Synchronous(seed);
         simulation.setNumberOfIteration(nbOfMaxIterations);
 
         //creation of the Tasks
@@ -51,6 +53,7 @@ public class Main {
         // Export
         try {
             simulation.exportHistoryToCsv();
+            simulation.exportRelevanceToCsv();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,10 @@
+import java.util.Random;
+
 public class Synchronous extends Simulation {
+
+	public Synchronous(Random seed) {
+		super(seed);
+	}
 
 	public void runSimulation() {
 		for(int i=0; i<numberOfIteration; i++) {

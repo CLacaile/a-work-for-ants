@@ -13,6 +13,7 @@ public class Agent {
     private ArrayList<Float> ratio = new ArrayList<>();
     private ArrayList <Task> eligibleTasks = new ArrayList<>();
     private ArrayList<Float> eligibleThresholds = new ArrayList<>();
+    private Random seed;
 
 
     public enum State {
@@ -26,11 +27,11 @@ public class Agent {
 	public Agent(int id, int nbOfTasks) {
 		this.id = id;
 		this.state = State.Init;
-
+		this.seed = Simulation.seed;
 		// Setting of the thresholds
         float temp_sum = 0;
         for(int i = 0; i < nbOfTasks; i++){
-			float random = Simulation.randomFloatGenerator(Simulation.randomGenerator);
+			float random = Simulation.randomFloatGenerator(Simulation.seed);
 			thresholds.add(random);
 			temp_sum+=random;
 		}
@@ -42,7 +43,7 @@ public class Agent {
 		// Generate threshold decrements in [0, threshold] // TODO max could be 0.01 for ex
 		for(int i = 0; i < nbOfTasks; i++){
 			Float max = thresholds.get(i);
-			Float random = Simulation.randomFloatInRange(Simulation.randomGenerator, new Float(0), max);
+			Float random = Simulation.randomFloatInRange(Simulation.seed, new Float(0), max);
 			threshold_decrements.add(random);
 		}
 
