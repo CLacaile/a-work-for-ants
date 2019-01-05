@@ -191,29 +191,23 @@ public class Simulation {
 		FileWriter writer = new FileWriter(csvFile);
 
 		CSVUtil.writeLine(writer, Arrays.asList("sep=,"));
-		CSVUtil.writeLine(writer, Arrays.asList("Iteration", "Agent ID", "Task ID", "Thresholds", "Task Relevance"), ',', '"');
+		CSVUtil.writeLine(writer, Arrays.asList("Iteration", "Agent ID", "Task ID", "Ratio", "Task Relevance"), ',', '"');
 
 		for(int i=0; i<numberOfIteration; i++){
 			for(int j=0; j<agents.size(); j++){
-				for(int k=0; k<total_agent_number; k++){
 					for(int l=0; l < total_task_number; l++){
 						CSVUtil.writeLine(writer,
 								Arrays.asList(
 										String.valueOf(i+1),
-										String.valueOf(k+1),
+										String.valueOf(j+1),
 										String.valueOf(l+1),
-										String.valueOf(history.getThresholds().get(j).get(l)),
-										String.valueOf(history.getRelevances().get(l))),
+										String.valueOf(agents.get(j).getRatio().get(l)),
+										String.valueOf(history.getRelevances().get(l).get(i))),
 								',',
 								'"'
 						);
 					}
-
-				}
-
 			}
-
-
 		}
 		writer.flush();
 		writer.close();

@@ -65,6 +65,50 @@ public class Agent {
         return this.nextTask;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public void setNextTask(Task nextTask) {
+        this.nextTask = nextTask;
+    }
+
+    public ArrayList<Float> getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(ArrayList<Float> ratio) {
+        this.ratio = ratio;
+    }
+
+    public ArrayList<Task> getEligibleTasks() {
+        return eligibleTasks;
+    }
+
+    public void setEligibleTasks(ArrayList<Task> eligibleTasks) {
+        this.eligibleTasks = eligibleTasks;
+    }
+
+    public ArrayList<Float> getEligibleThresholds() {
+        return eligibleThresholds;
+    }
+
+    public void setEligibleThresholds(ArrayList<Float> eligibleThresholds) {
+        this.eligibleThresholds = eligibleThresholds;
+    }
+
+    public Random getSeed() {
+        return seed;
+    }
+
+    public void setSeed(Random seed) {
+        this.seed = seed;
+    }
+
     // Setters
     public void setId(int id) {
         this.id = id;
