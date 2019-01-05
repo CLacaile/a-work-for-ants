@@ -37,6 +37,10 @@ public class Main {
         // Synchronous Simulation launch
         simulation.runSimulation();
 
+        // History mgmt
+        simulation.getHistory().fillThresholds(simulation.getAgents());
+        simulation.getHistory().fillRelevance(simulation.getTasks());
+
         // Export
         try {
             simulation.exportHistoryToCsv();
