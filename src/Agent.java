@@ -27,6 +27,7 @@ public class Agent {
 		this.id = id;
 		this.state = State.Init;
 		this.seed = Simulation.seed;
+
 		// Setting of the thresholds
         float temp_sum = 0;
         for(int i = 0; i < nbOfTasks; i++){
@@ -147,14 +148,15 @@ public class Agent {
 	public boolean performTask(Task task, ArrayList<Task> tasks) {
 	    //int taskIndex = task.getId();
 	    Float previousTaskRelevance = task.getTaskRelevanceAtIndex(-1);
-	    // Setting new relevance to (previousTaskRelevance - 0.01) if the task has still relevance left
+	    // Check if the task still has relevance left
         if (!previousTaskRelevance.equals(new Float(0))) {
+            // Update the other tasks
             float toAdd = (float) (0.05/(tasks.size()-1));
             for(int i = 0; i<tasks.size();i++){
                 Float previousTaskRelevances = tasks.get(i).getTaskRelevanceAtIndex(-1);
                 tasks.get(i).getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevances+toAdd);
             }
-
+            // Update the task
             task.getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevance - new Float(0.05));
         }
         // If the task is done
