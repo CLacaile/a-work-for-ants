@@ -25,8 +25,7 @@ public class Main {
         for(Agent a : simulation.getAgents()) {
             for (Task t : simulation.getTasks()) {
                 System.out.println("Agent id : " + a.getId() + " Task " + t.getId() +
-                        " threshold at t0 : " + a.getThresholds().get(t.getId()) +
-                        " threshold_decrement at t0: " + a.getThreshold_decrements().get(t.getId()));
+                        " threshold at t0 : " + a.getThresholds().get(t.getId()));
             }
             System.out.println("Tresholds sum : " + a.sumThresholds());
         }

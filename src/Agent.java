@@ -8,7 +8,6 @@ public class Agent {
 	private int id;
 	private State state;
 	private ArrayList<Float> thresholds = new ArrayList<>();            // A threshold per task
-	private ArrayList<Float> threshold_decrements = new ArrayList<>();
 	private Task nextTask; //to change to nextTask
     private ArrayList<Float> ratio = new ArrayList<>();
     private ArrayList <Task> eligibleTasks = new ArrayList<>();
@@ -40,13 +39,8 @@ public class Agent {
 		for(int i = 0; i < nbOfTasks; i++){
 			thresholds.set(i, thresholds.get(i) / temp_sum);
 		}
-		// Generate threshold decrements in [0, threshold] // TODO max could be 0.01 for ex
-		for(int i = 0; i < nbOfTasks; i++){
-			Float max = thresholds.get(i);
-			Float random = Simulation.randomFloatInRange(Simulation.seed, new Float(0), max);
-			threshold_decrements.add(random);
-		}
 
+		// Init the ratios
         for(int i=0; i<nbOfTasks; i++){
             ratio.add(i, 0f);
         }
@@ -66,9 +60,6 @@ public class Agent {
 
     public Float getLastThreshold() { return this.thresholds.get(this.thresholds.size()-1); }
 
-    public List<Float> getThreshold_decrements() {
-        return threshold_decrements;
-    }
 
     public Task getNextTask() {
         return this.nextTask;
@@ -79,14 +70,8 @@ public class Agent {
         this.id = id;
     }
 
-
     public void setThresholds(ArrayList<Float> thresholds) {
         this.thresholds = thresholds;
-    }
-
-
-    public void setThreshold_decrements(ArrayList<Float> threshold_decrements) {
-        this.threshold_decrements = threshold_decrements;
     }
 
     public void setPickedTask(Task pickedTask) {
