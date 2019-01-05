@@ -4,8 +4,8 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        int nbOfTasks = 25;
-        int nbOfAgents = 5;
+        int nbOfTasks = 10;
+        int nbOfAgents = 3;
         int nbOfMaxIterations = 20;
 
         Random seed = new Random(1);

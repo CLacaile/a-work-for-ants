@@ -211,8 +211,8 @@ public class Agent {
      */
     public Task pickEligibleTask() {
         float t = eligibleTasks.get(0).getTaskRelevanceAtIndex(-1);
-        Random seed = new Random();
-        float a = seed.nextFloat();
+        //Random seed = new Random();
+        float a = Simulation.randomFloatGenerator(Simulation.seed);
         int i = 0;
         // go through the eligible task table
         while (t < a) {
@@ -267,6 +267,8 @@ public class Agent {
      * @return true if it should go to the next state, false otherwise
      */
 	public boolean nextState(float threshold) {
+	    //Random seed = new Random();
+	    //float random = seed.nextFloat();
 	    float random = Simulation.randomFloatGenerator(Simulation.seed);
 	    if(random <= threshold)
 	        return true;
@@ -294,7 +296,7 @@ public class Agent {
                 // do nothing else so dup the relevances task
                 this.duplicateRelevances(tasks);
                 System.out.println("Idle! Picked task #" + this.getNextTask().getId());
-                if(this.nextState(new Float(0.5)))
+                if(this.nextState(new Float(0.8)))
                     this.state = State.Working;
                 else
                     this.state = State.Idle;
