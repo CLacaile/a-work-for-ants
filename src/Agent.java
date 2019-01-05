@@ -6,10 +6,8 @@ public class Agent {
 
     // Attributes
 	private int id;
-	private ArrayList<Float> proba = new ArrayList<>();
 	private State state;
 	private ArrayList<Float> thresholds = new ArrayList<>();            // A threshold per task
-	private float thresholdSum=1;
 	private ArrayList<Float> threshold_decrements = new ArrayList<>();
 	private Task nextTask; //to change to nextTask
     private ArrayList<Float> ratio = new ArrayList<>();
@@ -50,10 +48,6 @@ public class Agent {
 
         for(int i=0; i<nbOfTasks; i++){
             ratio.add(i, 0f);
-        }
-
-        for(int j=0; j<nbOfTasks;j++){
-            proba.add(j,0f);
         }
 
 		// Setting the picked task to the null task
@@ -188,11 +182,6 @@ public class Agent {
         Random seed = new Random();
         float a = seed.nextFloat();
         int i = 0;
-        // if the eligible task 0 is already over the random value a
-        if(t > a) {
-            this.nextTask = this.eligibleTasks.get(0);
-            return this.eligibleTasks.get(0);
-        }
         // go through the eligible task table
         while (t < a) {
             i++;
