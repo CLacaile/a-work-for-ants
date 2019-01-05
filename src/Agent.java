@@ -267,8 +267,7 @@ public class Agent {
      * @return true if it should go to the next state, false otherwise
      */
 	public boolean nextState(float threshold) {
-	    Random seed = new Random();
-	    float random = seed.nextFloat();
+	    float random = Simulation.randomFloatGenerator(Simulation.seed);
 	    if(random <= threshold)
 	        return true;
 	    else
@@ -292,6 +291,8 @@ public class Agent {
             case Idle:
                 this.computeEligibleTasks(tasks);
                 this.pickEligibleTask();
+                // do nothing else so dup the relevances task
+                this.duplicateRelevances(tasks);
                 System.out.println("Idle! Picked task #" + this.getNextTask().getId());
                 if(this.nextState(new Float(0.5)))
                     this.state = State.Working;
@@ -302,17 +303,29 @@ public class Agent {
                 this.performTask(this.nextTask,tasks);
                 System.out.println("Working on task #"+this.getNextTask().getId()+" !");
                 // decide what to do next:
-                if(this.nextState(new Float(0.33)) == true )
+                if(this.nextState(new Float(0.7)) == true )
                     this.state = State.Working;
-                else if(this.nextState(new Float(0.33)) == true )
+                else if(this.nextState(new Float(0.25)) == true )
                     this.state = State.Idle;
                 else
                     this.state = State.Dead;
                 break;
             case Dead:
-                // do nothing
+                // do nothing so dup the relevances task
+                this.duplicateRelevances(tasks);
                 System.out.println("Dead!");
                 break;
+        }
+    }
+
+    /**
+     * Duplicate the previous relevance of each task
+     * @param tasks
+     */
+    private void duplicateRelevances(ArrayList<Task> tasks) {
+	    for(int i=0; i<tasks.size(); i++) {
+            float previousRelevance = tasks.get(i).getTaskRelevanceAtIndex(-1);
+	        tasks.get(i).getTasksRelevances().getRelevanceArrayList().add(previousRelevance);
         }
     }
 }
