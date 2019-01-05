@@ -18,15 +18,6 @@ public class Main {
         simulation.setTotal_agent_number(nbOfAgents);
         simulation.createNAgents(nbOfAgents);
 
-        //Prints tasks & relevances
-        for(Task t : simulation.getTasks()) {
-            System.out.println("---------- Task "+t.getId()+" ----------");
-            for(int i= 0; i<nbOfMaxIterations; i++) {
-                System.out.println("R at t"+i+" : " + t.getTasksRelevances().getRelevanceArrayList().get(i));
-            }
-
-        }
-        System.out.println("Relevance sum : " + simulation.getRelevanceSum());
 
         //Prints Agents & thresholds & threshold_decrements per task
         for(Agent a : simulation.getAgents()) {
@@ -40,6 +31,18 @@ public class Main {
 
         // Synchronous Simulation launch
         simulation.runSimulation();
+
+
+        //Prints tasks & relevances
+        for(Task t : simulation.getTasks()) {
+            System.out.println("---------- Task "+t.getId()+" ----------");
+            for(int i= 0; i<nbOfMaxIterations; i++) {
+                System.out.print("R at t"+i+" : " + t.getTasksRelevances().getRelevanceArrayList().get(i)+"\t\t");
+            }
+            System.out.println(" ");
+
+        }
+        System.out.println("Relevance sum : " + simulation.getRelevanceSum());
 
         // History mgmt
         simulation.getHistory().fillThresholds(simulation.getAgents());
