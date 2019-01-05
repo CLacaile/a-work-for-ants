@@ -145,17 +145,17 @@ public class Agent {
 	 * @param task the task to perform
 	 * @return true if the task is performed ie. there is no relevance left, false otherwise
 	 */
-	public boolean performTask(Task task, ArrayList<Task> tasks) {
+	public boolean performTask(int iteration, Task task, ArrayList<Task> tasks) {
 	    //int taskIndex = task.getId();
 	    Float previousTaskRelevance = task.getTaskRelevanceAtIndex(-1);
 	    // Check if the task still has relevance left
-        if (!previousTaskRelevance.equals(new Float(0))) {
+        if (/*!previousTaskRelevance.equals(new Float(0))*/true) {
             // Update the other tasks
-            float toAdd = (float) (0.05/(tasks.size()-1));
+            /*float toAdd = (float) (0.05/(tasks.size()-1));
             for(int i = 0; i<tasks.size();i++){
                 Float previousTaskRelevances = tasks.get(i).getTaskRelevanceAtIndex(-1);
                 tasks.get(i).getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevances+toAdd);
-            }
+            }*/
             // Update the task
             task.getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevance - new Float(0.05));
         }
@@ -284,7 +284,7 @@ public class Agent {
      * - sleeping: a task has been chosen but is not being performed
      * - dead: it was either working and sleeping, and is now dead
      */
-	public void liveLife(ArrayList<Task> tasks) {
+	public void liveLife(int iteration, ArrayList<Task> tasks) {
 	    switch (this.state) {
             case Init:
                 System.out.println("Init!");
@@ -302,7 +302,7 @@ public class Agent {
                     this.state = State.Idle;
                 break;
             case Working:
-                this.performTask(this.nextTask,tasks);
+                this.performTask(iteration, this.nextTask,tasks);
                 System.out.println("Working on task #"+this.getNextTask().getId()+" !");
                 // decide what to do next:
                 if(this.nextState(new Float(0.7)) == true )
