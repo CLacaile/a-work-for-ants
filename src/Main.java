@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         int nbOfTasks = 10;
-        int nbOfAgents = 7;
+        int nbOfAgents = 3;
         int nbOfMaxIterations = 25;
 
         Random seed = new Random(1);
@@ -18,7 +18,7 @@ public class Main {
 
         //creation of the Agents
         simulation.setTotal_agent_number(nbOfAgents);
-        simulation.createNAgents(nbOfAgents);
+        simulation.createNAgents(nbOfAgents,nbOfMaxIterations);
 
 
         //Prints Agents & thresholds & threshold_decrements per task
@@ -53,6 +53,7 @@ public class Main {
         try {
             simulation.exportHistoryToCsv();
             simulation.exportRelevanceToCsv();
+            simulation.exportPickedTaskToCsv();
         } catch (IOException e) {
             e.printStackTrace();
         }

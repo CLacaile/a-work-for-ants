@@ -12,6 +12,7 @@ public class Agent {
     private ArrayList<Float> ratio = new ArrayList<>();
     private ArrayList <Task> eligibleTasks = new ArrayList<>();
     private ArrayList<Float> eligibleThresholds = new ArrayList<>();
+    private ArrayList<Integer> pickedTasks = new ArrayList<>();
     private Random seed;
 
 
@@ -23,7 +24,7 @@ public class Agent {
     }
 
 	// Constructor
-	public Agent(int id, int nbOfTasks) {
+	public Agent(int id, int nbOfTasks, int nbOfIteration) {
 		this.id = id;
 		this.state = State.Init;
 		this.seed = Simulation.seed;
@@ -46,6 +47,11 @@ public class Agent {
             ratio.add(i, 0f);
         }
 
+        //init pickedTasks
+        for(int i=0; i<nbOfIteration; i++){
+            pickedTasks.add(-1);
+        }
+
 		// Setting the picked task to the null task
         this.nextTask = new Task(0, nbOfTasks); // is it a good idea ?
 	}
@@ -53,6 +59,14 @@ public class Agent {
 	// Getters
     public int getId() {
         return id;
+    }
+
+    public ArrayList<Integer> getPickedTasks() {
+        return pickedTasks;
+    }
+
+    public void setPickedTasks(ArrayList<Integer> pickedTasks) {
+        this.pickedTasks = pickedTasks;
     }
 
     public ArrayList<Float> getThresholds() {
@@ -170,20 +184,16 @@ public class Agent {
         //int taskIndex = task.getId();
         Float previousTaskRelevance = task.getTaskRelevanceAtIndex(iteration);
         // Check if the task still has relevance left
-        if (previousTaskRelevance>=0.04) {
-            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.04));
+        if (true) {
+            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.01));
             // update the remaining relevances of the task with the new value
             for(int i=iteration; i<task.getTasksRelevances().getRelevanceArrayList().size(); i++) {
-                task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - new Float(0.04));
+                task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - new Float(0.01));
             }
         }
         // If the task is done
         else {
-            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - previousTaskRelevance);
-            // update the remaining relevances of the task with the new value
-            for(int i=iteration; i<task.getTasksRelevances().getRelevanceArrayList().size(); i++) {
-                task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - previousTaskRelevance);
-            }
+
             return true;
         }
         return false;
@@ -232,7 +242,7 @@ public class Agent {
      * by the agent. The list eligibleTasks must be computed before using computeEligibleTasks() !
      * @return the next task
      */
-    public Task pickEligibleTask() {
+    public Task pickEligibleTask(int iteration) {
         float t = eligibleTasks.get(0).getTaskRelevanceAtIndex(-1);
         //Random seed = new Random();
         float a = Simulation.randomFloatGenerator(Simulation.seed);
@@ -249,6 +259,7 @@ public class Agent {
             t += eligibleTasks.get(i).getTaskRelevanceAtIndex(-1);
         }
         this.nextTask = this.eligibleTasks.get(i);
+        pickedTasks.set(iteration, this.eligibleTasks.get(i).getId());
         return this.eligibleTasks.get(i);
     }
 
@@ -268,7 +279,7 @@ public class Agent {
      * Compute a list of doable tasks for the agent. A task is doable when the ratio is > 1. Uses computeRatio function.
      * @param tasks the list of tasks to perform
      */
-    public void computeEligibleTasks(List<Task> tasks) {
+    public void computeEligibleTasks(List<Task> tasks, int iteration) {
         computeRatio(tasks);
         for(int i = 0; i < this.ratio.size(); i++)
         {
@@ -314,8 +325,8 @@ public class Agent {
                 this.state = State.Idle;
                 break;
             case Idle:
-                this.computeEligibleTasks(tasks);
-                this.pickEligibleTask();
+                this.computeEligibleTasks(tasks, iteration);
+                this.pickEligibleTask(iteration);
                 // do nothing else
                 System.out.println("Idle! Picked task #" + this.getNextTask().getId());
                 if(this.nextState(new Float(0.8)))

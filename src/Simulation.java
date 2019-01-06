@@ -147,8 +147,8 @@ public class Simulation {
 	 * This method is used to create a new agent
 	 * @param id the id of the agent to create
 	 */
-	public void createAgent(int id){
-		Agent agent = new Agent(id, tasks.size());
+	public void createAgent(int id, int numberOfIteration){
+		Agent agent = new Agent(id, tasks.size(), numberOfIteration);
 		agents.add(agent);
 	}
 
@@ -156,9 +156,9 @@ public class Simulation {
 	 * This method is used to create a given number of agents
 	 * @param nbOfAgents the number of agents to create
 	 */
-	public void createNAgents(int nbOfAgents){
+	public void createNAgents(int nbOfAgents, int nbOfIteration){
 		for(int i = 0; i<nbOfAgents; i++){
-			createAgent(i+1);
+			createAgent(i+1, nbOfIteration);
 		}
 	}
 
@@ -247,6 +247,34 @@ public class Simulation {
 						);
 					}
 			}
+		//jacques
+		writer.flush();
+		writer.close();
+	}
+
+	/**
+	 * This method is used to export the picked task by the agent values to a .csv file
+	 * @throws IOException
+	 */
+	public void exportPickedTaskToCsv() throws IOException {
+		String csvFile = "pickedTask.csv";
+		FileWriter writer = new FileWriter(csvFile);
+
+		CSVUtil.writeLine(writer, Arrays.asList("sep=,"));
+		CSVUtil.writeLine(writer, Arrays.asList("Iteration", "Agent ID", "Picked task ID"), ',', '"');
+
+		for(int i=0; i<numberOfIteration; i++){
+			for(int l=0; l < total_agent_number; l++){
+				CSVUtil.writeLine(writer,
+						Arrays.asList(
+								String.valueOf(i+1),
+								String.valueOf(l+1),
+								String.valueOf(agents.get(l).getPickedTasks().get(i))),
+						',',
+						'"'
+				);
+			}
+		}
 		//jacques
 		writer.flush();
 		writer.close();
