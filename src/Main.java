@@ -45,14 +45,23 @@ public class Main {
         }
         System.out.println("Relevance sum : " + simulation.getRelevanceSum());
 
+        for(Agent a : simulation.getAgents()) {
+            System.out.println("---------- Agent "+a.getId()+" ---------");
+            for(int i=0; i<nbOfMaxIterations; i++) {
+                System.out.print(a.getPickedTasksID().get(i)+"\t");
+            }
+            System.out.println("");
+        }
+
         // History mgmt
         simulation.getHistory().fillThresholds(simulation.getAgents());
         simulation.getHistory().fillRelevance(simulation.getTasks());
 
         // Export
         try {
-            simulation.exportHistoryToCsv();
+            simulation.exportRatioToCsv();
             simulation.exportRelevanceToCsv();
+            simulation.exportTasksToCsv();
         } catch (IOException e) {
             e.printStackTrace();
         }
