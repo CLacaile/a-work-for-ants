@@ -168,7 +168,7 @@ public class Agent {
 
     public boolean newPerformTask(int iteration, Task task, ArrayList<Task> tasks) {
         //int taskIndex = task.getId();
-        Float previousTaskRelevance = task.getTaskRelevanceAtIndex(iteration-1);
+        Float previousTaskRelevance = task.getTaskRelevanceAtIndex(iteration);
         // Check if the task still has relevance left
         if (/*(previousTaskRelevance - (new Float(0.05))) >= (new Float(0.01))*/true) {
             task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.05));
