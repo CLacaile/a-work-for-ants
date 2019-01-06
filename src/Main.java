@@ -5,8 +5,8 @@ public class Main {
 
     public static void main(String[] args) {
         int nbOfTasks = 10;
-        int nbOfAgents = 3;
-        int nbOfMaxIterations = 20;
+        int nbOfAgents = 7;
+        int nbOfMaxIterations = 25;
 
         Random seed = new Random(1);
         Synchronous simulation = new Synchronous(seed);
