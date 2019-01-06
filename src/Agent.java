@@ -12,6 +12,7 @@ public class Agent {
     private ArrayList<Float> ratio = new ArrayList<>();
     private ArrayList <Task> eligibleTasks = new ArrayList<>();
     private ArrayList<Float> eligibleThresholds = new ArrayList<>();
+    private ArrayList<Integer> pickedTasksID = new ArrayList<>();
     private Random seed;
 
 
@@ -23,7 +24,7 @@ public class Agent {
     }
 
 	// Constructor
-	public Agent(int id, int nbOfTasks) {
+	public Agent(int id, int nbOfTasks, int nbOfIterations) {
 		this.id = id;
 		this.state = State.Init;
 		this.seed = Simulation.seed;
@@ -48,6 +49,11 @@ public class Agent {
 
 		// Setting the picked task to the null task
         this.nextTask = new Task(0, nbOfTasks); // is it a good idea ?
+
+        // Init the pickedTasks list
+        for(int i= 0; i<nbOfIterations; i++) {
+            this.pickedTasksID.add(i, -1);
+        }
 	}
 
 	// Getters
@@ -108,6 +114,10 @@ public class Agent {
 
     public void setSeed(Random seed) {
         this.seed = seed;
+    }
+
+    public ArrayList<Integer> getPickedTasksID() {
+        return this.pickedTasksID;
     }
 
     // Setters
@@ -303,6 +313,7 @@ public class Agent {
      * - dead: it was either working and sleeping, and is now dead
      */
 	public void liveLife(int iteration, ArrayList<Task> tasks) {
+        float random = Simulation.randomFloatGenerator(Simulation.seed);
 	    switch (this.state) {
             case Init:
                 System.out.println("Init!");
@@ -311,9 +322,10 @@ public class Agent {
             case Idle:
                 this.computeEligibleTasks(tasks);
                 this.pickEligibleTask();
+                this.pickedTasksID.set(iteration, this.nextTask.getId());
                 // do nothing else
                 System.out.println("Idle! Picked task #" + this.getNextTask().getId());
-                if(this.nextState(new Float(0.8)))
+                if(random > (new Float(0.2)))
                     this.state = State.Working;
                 else
                     this.state = State.Idle;
@@ -323,9 +335,9 @@ public class Agent {
                 this.newPerformTask(iteration, this.nextTask,tasks);
                 System.out.println("Working on task #"+this.getNextTask().getId()+" !");
                 // decide what to do next:
-                if(this.nextState(new Float(0.7)) == true )
+                if(random > (new Float(0.30)) == true )
                     this.state = State.Working;
-                else if(this.nextState(new Float(0.25)) == true )
+                else if(random > (new Float(0.05)) == true )
                     this.state = State.Idle;
                 else
                     this.state = State.Dead;
