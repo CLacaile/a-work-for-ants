@@ -122,6 +122,16 @@ public class Simulation {
 		for(int i = 0; i < nbOfTasks; i++){
 			tasks.get(i).getTasksRelevances().getRelevanceArrayList().set(0, tasks.get(i).getTasksRelevances().getRelevanceArrayList().get(0) / temp_sum);
 		}
+
+		// Duplicate the relevances
+		for(int i=0; i<nbOfTasks; i++) {
+			float previousRelevance = tasks.get(i).getTaskRelevanceAtIndex(0);
+			for(int j=1; j<this.numberOfIteration;j++) {
+				tasks.get(i).getTasksRelevances().getRelevanceArrayList().add(j, previousRelevance);
+			}
+		}
+
+
 	}
 
 	/**
