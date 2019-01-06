@@ -157,7 +157,7 @@ public class Agent {
                 tasks.get(i).getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevances+toAdd);
             }
             // Update the task
-            task.getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevance - new Float(0.05));
+            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.05));
         }
         // If the task is done
         else {
@@ -165,6 +165,20 @@ public class Agent {
         }
 		return false;
 	}
+
+    public boolean newPerformTask(int iteration, Task task, ArrayList<Task> tasks) {
+        //int taskIndex = task.getId();
+        Float previousTaskRelevance = task.getTaskRelevanceAtIndex(iteration-1);
+        // Check if the task still has relevance left
+        if (!previousTaskRelevance.equals(new Float(0))) {
+            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.05));
+        }
+        // If the task is done
+        else {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * This method is used to perform the previousTask picked by pickTask. It substracts 0.01 to the task relevance if
@@ -294,7 +308,7 @@ public class Agent {
                 this.computeEligibleTasks(tasks);
                 this.pickEligibleTask();
                 // do nothing else so dup the relevances task
-                this.duplicateRelevance(this.nextTask);
+                this.duplicateRelevance(iteration, tasks);
                 System.out.println("Idle! Picked task #" + this.getNextTask().getId());
                 if(this.nextState(new Float(0.8)))
                     this.state = State.Working;
@@ -302,7 +316,7 @@ public class Agent {
                     this.state = State.Idle;
                 break;
             case Working:
-                this.performTask(iteration, this.nextTask,tasks);
+                this.newPerformTask(iteration, this.nextTask,tasks);
                 System.out.println("Working on task #"+this.getNextTask().getId()+" !");
                 // decide what to do next:
                 if(this.nextState(new Float(0.7)) == true )
@@ -314,7 +328,7 @@ public class Agent {
                 break;
             case Dead:
                 // do nothing so dup the relevances task
-                this.duplicateRelevance(this.nextTask);
+                this.duplicateRelevance(iteration, tasks);
                 System.out.println("Dead!");
                 break;
         }
@@ -322,12 +336,12 @@ public class Agent {
 
     /**
      * Duplicate the previous relevance a task
-     * @param task
+     * @param tasks
      */
-    private void duplicateRelevance(Task task) {
-	    //for(int i=0; i<tasks.size(); i++) {
-            float previousRelevance = task.getTaskRelevanceAtIndex(-1);
-	        task.getTasksRelevances().getRelevanceArrayList().add(previousRelevance);
-        //}
+    private void duplicateRelevance(int iteration, ArrayList<Task> tasks) {
+	    for(int i=0; i<tasks.size(); i++) {
+            float previousRelevance = tasks.get(i).getTaskRelevanceAtIndex(iteration-1);
+	        tasks.get(i).getTasksRelevances().getRelevanceArrayList().set(iteration, previousRelevance);
+        }
     }
 }
