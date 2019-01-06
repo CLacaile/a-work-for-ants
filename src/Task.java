@@ -3,7 +3,7 @@ import java.util.List;
 public class Task {
 
 	// Attributes
-	private int id; // if id = 0, it is the null task (sleeping)
+	private int id;
 	private Relevance tasksRelevances;
 
 	// Constructor
@@ -32,31 +32,6 @@ public class Task {
 			return tasksRelevances.getRelevanceArrayList().get(sizeOfRelvevanceArrayList-1);
 		}
 		return tasksRelevances.getRelevanceArrayList().get(index);
-	}
-
-	// Setters
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setTasksRelevances(Relevance tasksRelevances) {
-		this.tasksRelevances = tasksRelevances;
-	}
-
-	public void setRelevanceAtIndex(int index, Float newRelevance) {
-		tasksRelevances.getRelevanceArrayList().set(index, newRelevance);
-	}
-
-	// Methods
-	/**
-	 * Change la relevance selon le nb d'agent qui ont perform la tache
-	 */
-	public void task_done() {
-
-	}
-
-	public void updateRelevance() {
-
 	}
 }
 

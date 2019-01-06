@@ -18,29 +18,15 @@ public class Simulation {
 	protected History history = new History();
 
 	// Constructor
-	//public Simulation() {}
-
 	public Simulation(Random seed) {
 		computeRelevanceSum();
 		this.seed = seed;
 	}
 
 	// Getters
-	public int getNumberOfIteration() {
-		return numberOfIteration;
-	}
-
 	public float getRelevanceSum() {
 		computeRelevanceSum();
 		return relevanceSum;
-	}
-
-	public int getTotal_agent_number() {
-		return total_agent_number;
-	}
-
-	public int getTotal_task_number() {
-		return total_task_number;
 	}
 
 	public ArrayList<Agent> getAgents() {
@@ -53,7 +39,6 @@ public class Simulation {
 
 	public History getHistory() { return history;}
 
-	public Random getSeed() { return seed;}
 
 	// Setters
 	public void setNumberOfIteration(int numberOfIteration) {
@@ -72,16 +57,7 @@ public class Simulation {
 		this.total_task_number = total_task_number;
 	}
 
-	public void setAgents(ArrayList<Agent> agents) {
-		this.agents = agents;
-	}
-
-	public void setTasks(ArrayList<Task> tasks) {
-		this.tasks = tasks;
-	}
-
 	// Methods
-
 	/**
 	 * This method computes the relevance sum and set the value of this.relevanceSum attribute
 	 */
@@ -135,15 +111,6 @@ public class Simulation {
 	}
 
 	/**
-	 * This method assigns a task to perform to each agent of the simulation. It uses Agent.pickTask() function.
-	 */
-	public void assignTasks(){
-		for(int i=0; i<this.getTotal_agent_number(); i++) {
-			this.getAgents().get(i).pickTask(this.getTasks());
-		}
-	}
-
-	/**
 	 * This method is used to create a new agent
 	 * @param id the id of the agent to create
 	 */
@@ -171,29 +138,9 @@ public class Simulation {
 		return seed.nextFloat();
 	}
 
-	/**
-	 * This method is used to create a random float number between min and max
-	 * @param seed the seed
-	 * @param min the min float
-	 * @param max the max float
-	 * @return a float between 0 and 1
-	 */
-	public static Float randomFloatInRange(Random seed, Float min, Float max) {
-		return min + seed.nextFloat() * (max - min);
-	}
 
 	/**
-	 * This method is used to create a random float number between a min and a max value
-	 * @param min the min value
-	 * @param max the max value
-	 * @return an integer between min and max
-	 */
-	public static int randomIntInRange(Random seed, int min, int max) {
-		return seed.nextInt((max - min) + 1) + min;
-	}
-
-	/**
-	 * This method is used to export the History values to a .csv file
+	 * This method is used to export the values of the ratios for each task for every agent for each iteration to a .csv file
 	 * @throws IOException
 	 */
 	public void exportRatioToCsv() throws IOException {
@@ -224,7 +171,7 @@ public class Simulation {
 
 
 	/**
-	 * This method is used to export the History values to a .csv file
+	 * This method is used to export the relevance values of each task for each iteration to a .csv file
 	 * @throws IOException
 	 */
 	public void exportRelevanceToCsv() throws IOException {
@@ -252,7 +199,7 @@ public class Simulation {
 	}
 
 	/**
-	 * This method is used to export the History values to a .csv file
+	 * This method is used to export the picked task  for each agent for each iteration to a .csv file
 	 * @throws IOException
 	 */
 	public void exportTasksToCsv() throws IOException {

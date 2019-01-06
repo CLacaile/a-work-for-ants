@@ -16,37 +16,11 @@ public class History {
 	}
 
 	// Getters
-	public ArrayList<ArrayList<Float>> getThresholds() {
-		return this.thresholds;
-	}
-
 	public ArrayList<ArrayList<Float>> getRelevances() {
 		return this.relevances;
 	}
 
-	public ArrayList<Float> getRelevanceSum() { return this.relevanceSum;}
-
-	// Setters
-	public void setThresholds(ArrayList<ArrayList<Float>> thresholds) {
-		this.thresholds = thresholds;
-	}
-
-	public void setRelevances(ArrayList<ArrayList<Float>> relevances) {
-		this.relevances = relevances;
-	}
-
-	public void setRelevanceSum(ArrayList<Float> relevanceSumList) { this.relevanceSum = relevanceSumList;}
-
 	// Methods
-
-    /**
-     * Add the thresholds of an agent to the history
-     * @param agent the agent
-     */
-    public void addThresholdsToHistory(Agent agent) {
-	    this.thresholds.add(this.thresholds.size(), agent.getThresholds());
-    }
-
     /**
      * Fill the history thresholds list
      * @param agentList the list of agents
@@ -57,13 +31,6 @@ public class History {
 		}
 	}
 
-    /**
-     * Add the relevances of a task to the history
-     * @param task the task
-     */
-	public void addRelevanceToHistory(Task task) {
-	    this.relevances.add(this.relevances.size(), task.getTasksRelevances().getRelevanceArrayList());
-    }
     /**
      * Fill the history relevance list
      * @param taskList the list of task

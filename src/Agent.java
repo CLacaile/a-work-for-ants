@@ -13,7 +13,6 @@ public class Agent {
     private ArrayList <Task> eligibleTasks = new ArrayList<>();
     private ArrayList<Float> eligibleThresholds = new ArrayList<>();
     private ArrayList<Integer> pickedTasksID = new ArrayList<>();
-    private Random seed;
 
 
     public enum State {
@@ -27,7 +26,6 @@ public class Agent {
 	public Agent(int id, int nbOfTasks, int nbOfIterations) {
 		this.id = id;
 		this.state = State.Init;
-		this.seed = Simulation.seed;
 
 		// Setting of the thresholds
         float temp_sum = 0;
@@ -65,74 +63,19 @@ public class Agent {
         return thresholds;
     }
 
-    public Float getLastThreshold() { return this.thresholds.get(this.thresholds.size()-1); }
-
 
     public Task getNextTask() {
         return this.nextTask;
     }
 
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public void setNextTask(Task nextTask) {
-        this.nextTask = nextTask;
-    }
 
     public ArrayList<Float> getRatio() {
         return ratio;
     }
 
-    public void setRatio(ArrayList<Float> ratio) {
-        this.ratio = ratio;
-    }
-
-    public ArrayList<Task> getEligibleTasks() {
-        return eligibleTasks;
-    }
-
-    public void setEligibleTasks(ArrayList<Task> eligibleTasks) {
-        this.eligibleTasks = eligibleTasks;
-    }
-
-    public ArrayList<Float> getEligibleThresholds() {
-        return eligibleThresholds;
-    }
-
-    public void setEligibleThresholds(ArrayList<Float> eligibleThresholds) {
-        this.eligibleThresholds = eligibleThresholds;
-    }
-
-    public Random getSeed() {
-        return seed;
-    }
-
-    public void setSeed(Random seed) {
-        this.seed = seed;
-    }
-
     public ArrayList<Integer> getPickedTasksID() {
         return this.pickedTasksID;
     }
-
-    // Setters
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setThresholds(ArrayList<Float> thresholds) {
-        this.thresholds = thresholds;
-    }
-
-    public void setPickedTask(Task pickedTask) {
-        this.nextTask = pickedTask;
-    }
-
 
 	// Methods
 
@@ -149,62 +92,21 @@ public class Agent {
 		return sum;
 	}
 
-	/**
-	 * This method is used to perform a given task. It substracts 0.01 to the task relevance if the task relevance is
-     * not 0
-	 * @param task the task to perform
-	 * @return true if the task is performed ie. there is no relevance left, false otherwise
-	 */
-	public boolean performTask(int iteration, Task task, ArrayList<Task> tasks) {
-	    //int taskIndex = task.getId();
-	    Float previousTaskRelevance = task.getTaskRelevanceAtIndex(-1);
-	    // Check if the task still has relevance left
-        if (!previousTaskRelevance.equals(new Float(0))) {
-            // Update the other tasks
-            float toAdd = (float) (0.05/(tasks.size()-1));
-            for(int i = 0; i<tasks.size();i++){
-                Float previousTaskRelevances = tasks.get(i).getTaskRelevanceAtIndex(-1);
-                tasks.get(i).getTasksRelevances().getRelevanceArrayList().add(previousTaskRelevances+toAdd);
-            }
-            // Update the task
-            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.05));
-        }
-        // If the task is done
-        else {
-            return true;
-        }
-		return false;
-	}
-
-    public boolean newPerformTask(int iteration, Task task, ArrayList<Task> tasks) {
-        //int taskIndex = task.getId();
-        Float previousTaskRelevance = task.getTaskRelevanceAtIndex(iteration);
-        // Check if the task still has relevance left
-        if (/*(previousTaskRelevance - (new Float(0.05))) >= (new Float(0.01))*/true) {
-            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.05));
-            // update the remaining relevances of the task with the new value
-            for(int i=iteration; i<task.getTasksRelevances().getRelevanceArrayList().size(); i++) {
-                task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - new Float(0.05));
-            }
-        }
-        // If the task is done
-        else {
-            return true;
-        }
-        return false;
-    }
-
     /**
-     * This method is used to perform the previousTask picked by pickTask. It substracts 0.01 to the task relevance if
-     * the task relevance is not 0
+     * This method is used to perform a given task. It substracts 0.01 to the task relevance if the task relevance is
+     * not 0
+     * @param task the task to perform
      * @return true if the task is performed ie. there is no relevance left, false otherwise
      */
-    public boolean performPickedTask() {
-        int taskIndex = this.nextTask.getId();
-        Float previousTaskRelevance = this.nextTask.getTaskRelevanceAtIndex(taskIndex);
-        // Setting new relevance to (previousTaskRelevance - 0.01) if the task has still relevance left
-        if (!previousTaskRelevance.equals(new Float(0))) {
-            this.nextTask.setRelevanceAtIndex(taskIndex, previousTaskRelevance - new Float(0.01));
+    public boolean newPerformTask(int iteration, Task task, ArrayList<Task> tasks) {
+        Float previousTaskRelevance = task.getTaskRelevanceAtIndex(iteration);
+        // Check if the task still has relevance left
+        if (true) {
+            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.01));
+            // update the remaining relevances of the task with the new value
+            for(int i=iteration; i<task.getTasksRelevances().getRelevanceArrayList().size(); i++) {
+                task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - new Float(0.01));
+            }
         }
         // If the task is done
         else {
@@ -213,24 +115,6 @@ public class Agent {
         return false;
     }
 
-	/**
-	 * Implementation of roulette wheel selection algorithm on a list of tasks to determine the
-	 * task to perform by the agent
-	 * @param tasks the list of tasks to perform
-	 * @return a task to perform
-	 */
-	public Task pickTask(List<Task> tasks) {
-		float t = eligibleThresholds.get(0);
-		Random seed = new Random();
-		float a = seed.nextFloat();
-		int i = 0;
-		while (t < a) {
-			i++;
-			t += eligibleThresholds.get(i);
-		}
-		this.nextTask = eligibleTasks.get(i);
-		return this.nextTask;
-	}
 
     /**
      * Implementation of roulette wheel selection algorithm on a list of doable tasks. It determines the task to perform
@@ -239,7 +123,6 @@ public class Agent {
      */
     public Task pickEligibleTask() {
         float t = eligibleTasks.get(0).getTaskRelevanceAtIndex(-1);
-        //Random seed = new Random();
         float a = Simulation.randomFloatGenerator(Simulation.seed);
         int i = 0;
         // go through the eligible task table
@@ -287,21 +170,6 @@ public class Agent {
         if(this.eligibleTasks.isEmpty()) {
             this.eligibleTasks.add(tasks.get(0));
         }
-    }
-
-    /**
-     * This function determines if the agent should go to the next state or not according to a random value
-     * @param threshold the decision threshold
-     * @return true if it should go to the next state, false otherwise
-     */
-	public boolean nextState(float threshold) {
-	    //Random seed = new Random();
-	    //float random = seed.nextFloat();
-	    float random = Simulation.randomFloatGenerator(Simulation.seed);
-	    if(random <= threshold)
-	        return true;
-	    else
-	        return false;
     }
 
     /**
