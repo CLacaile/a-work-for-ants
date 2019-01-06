@@ -148,7 +148,7 @@ public class Simulation {
 	 * @param id the id of the agent to create
 	 */
 	public void createAgent(int id){
-		Agent agent = new Agent(id, tasks.size());
+		Agent agent = new Agent(id, tasks.size(), this.numberOfIteration);
 		agents.add(agent);
 	}
 
@@ -196,12 +196,12 @@ public class Simulation {
 	 * This method is used to export the History values to a .csv file
 	 * @throws IOException
 	 */
-	public void exportHistoryToCsv() throws IOException {
-		String csvFile = "history.csv";
+	public void exportRatioToCsv() throws IOException {
+		String csvFile = "ratio.csv";
 		FileWriter writer = new FileWriter(csvFile);
 
 		CSVUtil.writeLine(writer, Arrays.asList("sep=,"));
-		CSVUtil.writeLine(writer, Arrays.asList("Iteration", "Agent ID", "Task ID", "Ratio", "Task Relevance"), ',', '"');
+		CSVUtil.writeLine(writer, Arrays.asList("Iteration", "Agent ID", "Task ID", "Ratio"), ',', '"');
 
 		for(int i=0; i<numberOfIteration; i++){
 			for(int j=0; j<agents.size(); j++){
@@ -211,8 +211,7 @@ public class Simulation {
 										String.valueOf(i+1),
 										String.valueOf(j+1),
 										String.valueOf(l+1),
-										String.valueOf(agents.get(j).getRatio().get(l)),
-										String.valueOf(history.getRelevances().get(l).get(i))),
+										String.valueOf(agents.get(j).getRatio().get(l))),
 								',',
 								'"'
 						);
@@ -252,4 +251,30 @@ public class Simulation {
 		writer.close();
 	}
 
+	/**
+	 * This method is used to export the History values to a .csv file
+	 * @throws IOException
+	 */
+	public void exportTasksToCsv() throws IOException {
+		String csvFile = "tasks.csv";
+		FileWriter writer = new FileWriter(csvFile);
+
+		CSVUtil.writeLine(writer, Arrays.asList("sep=,"));
+		CSVUtil.writeLine(writer, Arrays.asList("Iteration", "Agent ID", "Picked Task ID"), ',', '"');
+
+		for(int i=0; i<numberOfIteration; i++){
+			for(int j=0; j<agents.size(); j++){
+				CSVUtil.writeLine(writer,
+						Arrays.asList(
+								String.valueOf(i+1),
+								String.valueOf(j+1),
+								String.valueOf(agents.get(j).getPickedTasksID().get(i))),
+						',',
+						'"'
+				);
+			}
+		}
+		writer.flush();
+		writer.close();
+	}
 }
