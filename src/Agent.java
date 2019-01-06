@@ -170,15 +170,20 @@ public class Agent {
         //int taskIndex = task.getId();
         Float previousTaskRelevance = task.getTaskRelevanceAtIndex(iteration);
         // Check if the task still has relevance left
-        if (/*(previousTaskRelevance - (new Float(0.05))) >= (new Float(0.01))*/true) {
-            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.05));
+        if (previousTaskRelevance>=0.04) {
+            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.04));
             // update the remaining relevances of the task with the new value
             for(int i=iteration; i<task.getTasksRelevances().getRelevanceArrayList().size(); i++) {
-                task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - new Float(0.05));
+                task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - new Float(0.04));
             }
         }
         // If the task is done
         else {
+            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - previousTaskRelevance);
+            // update the remaining relevances of the task with the new value
+            for(int i=iteration; i<task.getTasksRelevances().getRelevanceArrayList().size(); i++) {
+                task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - previousTaskRelevance);
+            }
             return true;
         }
         return false;
