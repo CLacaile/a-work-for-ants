@@ -6,7 +6,6 @@ public class Relevance {
 	private ArrayList<Float> relevance = new ArrayList<>();
 	private int min;
 	private int max;
-	private int seed;
 	private boolean periodical;
 
 	// Constructor

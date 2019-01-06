@@ -8,8 +8,6 @@ public class History {
 
 	private ArrayList<ArrayList<Float>> relevances = new ArrayList<>(); //A list of relevance of task at each iteration
 
-	private ArrayList<Float> relevanceSum = new ArrayList<>(); // A list of relevance sum at each iteration
-
 	// Constructor
 	public History(){
 
