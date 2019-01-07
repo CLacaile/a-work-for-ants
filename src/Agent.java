@@ -96,21 +96,14 @@ public class Agent {
      * @param task the task to perform
      * @return true if the task is performed ie. there is no relevance left, false otherwise
      */
-    public boolean newPerformTask(int iteration, Task task) {
+    public void newPerformTask(int iteration, Task task) {
         Float previousTaskRelevance = task.getTaskRelevanceAtIndex(iteration);
-        // Check if the task still has relevance left
-        if (true) {
-            task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.01));
-            // update the remaining relevances of the task with the new value
-            for(int i=iteration; i<task.getTasksRelevances().getRelevanceArrayList().size(); i++) {
-                task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - new Float(0.01));
-            }
+        // update the relevance of the task
+        task.getTasksRelevances().getRelevanceArrayList().set(iteration, previousTaskRelevance - new Float(0.01));
+        // update the remaining relevances of the task with the new value
+        for(int i=iteration; i<task.getTasksRelevances().getRelevanceArrayList().size(); i++) {
+            task.getTasksRelevances().getRelevanceArrayList().set(i, previousTaskRelevance - new Float(0.01));
         }
-        // If the task is done
-        else {
-            return true;
-        }
-        return false;
     }
 
 
