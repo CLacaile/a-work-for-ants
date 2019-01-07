@@ -7,13 +7,11 @@ public class Agent {
     // Attributes
 	private int id;
 	private State state;
-	private ArrayList<Float> thresholds = new ArrayList<>();            // A threshold per task
-	private Task nextTask; //to change to nextTask
+	private Task nextTask;
+    private ArrayList<Float> thresholds = new ArrayList<>();
     private ArrayList<Float> ratio = new ArrayList<>();
     private ArrayList <Task> eligibleTasks = new ArrayList<>();
-    private ArrayList<Float> eligibleThresholds = new ArrayList<>();
     private ArrayList<Integer> pickedTasksID = new ArrayList<>();
-
 
     public enum State {
         Init,   // no task chosen
@@ -98,7 +96,7 @@ public class Agent {
      * @param task the task to perform
      * @return true if the task is performed ie. there is no relevance left, false otherwise
      */
-    public boolean newPerformTask(int iteration, Task task, ArrayList<Task> tasks) {
+    public boolean newPerformTask(int iteration, Task task) {
         Float previousTaskRelevance = task.getTaskRelevanceAtIndex(iteration);
         // Check if the task still has relevance left
         if (true) {
@@ -163,7 +161,6 @@ public class Agent {
             if(this.ratio.get(i) > 1)
             {
                 this.eligibleTasks.add(tasks.get(i));
-                this.eligibleThresholds.add(thresholds.get(i));
             }
         }
         // if there is no eligible task, choose the null task
@@ -200,7 +197,7 @@ public class Agent {
                 break;
             case Working:
                 // perform task
-                this.newPerformTask(iteration, this.nextTask,tasks);
+                this.newPerformTask(iteration, this.nextTask);
                 System.out.println("Working on task #"+this.getNextTask().getId()+" !");
                 // decide what to do next:
                 if(random > (new Float(0.30)) == true )
